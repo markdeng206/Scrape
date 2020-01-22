@@ -1,10 +1,11 @@
 from django.contrib.postgres.fields import ArrayField, JSONField
-from django.db.models import CharField, Model, FloatField, IntegerField, DateField, DateTimeField, TextField
+from django.db.models import CharField, Model, FloatField, IntegerField, DateField, DateTimeField, TextField, AutoField
 
 
 class Movie(Model):
-    name = CharField(max_length=255, primary_key=True)
-    alias = CharField(max_length=255)
+    id = AutoField(primary_key=True)
+    name = CharField(max_length=255, unique=True)
+    alias = CharField(max_length=255, null=True, blank=True)
     cover = CharField(max_length=255, null=True, blank=True)
     categories = ArrayField(CharField(max_length=255, null=True, blank=True), null=True, blank=True)
     regions = ArrayField(CharField(max_length=255, null=True, blank=True), null=True, blank=True)
@@ -16,8 +17,7 @@ class Movie(Model):
     drama = TextField(null=True, blank=True)
     photos = ArrayField(CharField(max_length=500, null=True, blank=True), null=True, blank=True)
     published_at = DateField(null=True, blank=True)
-    created_at = DateTimeField(auto_now_add=True)
-    updated_at = DateTimeField(auto_now=True)
+    updated_at = DateTimeField(auto_now=True, null=True, blank=True)
 
     class Meta:
         app_label = 'app'

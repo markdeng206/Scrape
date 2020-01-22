@@ -3,6 +3,7 @@ from scrapy import Spider, Request
 from furl import furl
 from ..items import MovieItem
 
+
 class MaoyanSpider(Spider):
     name = 'maoyan'
     allowed_domains = ['maoyan.com']
@@ -15,25 +16,18 @@ class MaoyanSpider(Spider):
                 'offset': offset
             }).url
             yield Request(index_url, callback=self.parse_index)
-            break
 
     def parse_index(self, response):
-        print('response', response.status)
         for item in response.css('dl.board-wrapper dd'):
-            print('item', item)
             rank = item.css('.board-index::text').extract_first()
-            print('rank', rank)
             detail_href = item.css('p.name a::attr(href)').extract_first()
-            print('detail href', detail_href)
             detail_url = response.urljoin(detail_href)
             score = response.css('.score .integer::text').extract_first().strip() + \
                     response.css('.score .fraction::text').extract_first().strip()
-            print('score', score)
             yield Request(detail_url, callback=self.parse_detail, meta={
                 'rank': rank,
                 'score': score
             })
-            break
 
     def parse_detail(self, response):
         rank = response.meta.get('rank')
@@ -62,7 +56,6 @@ class MaoyanSpider(Spider):
                     'name': director_name,
                     'image': director_image
                 })
-        print('drirectors', directors)
         actors_info = response.xpath(
             '//div[contains(@class, "tab-celebrity")]//div[@class="celebrity-type" and contains(text(), "演员")]/following-sibling::ul[contains(@class, "celebrity-list")]//li[contains(@class, "actor")]')
         actors = []
