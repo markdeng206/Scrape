@@ -3,8 +3,10 @@
     <el-col class="container" :span="18" :offset="3">
       <el-row>
         <el-col :span="4" class="logo">
-          <img src="../assets/logo.png" class="logo-image">
-          <span class="logo-title">Scrape</span>
+          <router-link :to="{name: 'index'}">
+            <img src="../assets/logo.png" class="logo-image">
+            <span class="logo-title">Scrape</span>
+          </router-link>
         </el-col>
       </el-row>
     </el-col>
