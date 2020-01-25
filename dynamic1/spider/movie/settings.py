@@ -13,11 +13,12 @@ import sys
 import django
 from configparser import SafeConfigParser
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
 sys.path.append(os.path.join(os.path.dirname(BASE_DIR)))
+sys.path.append(os.path.join(os.path.dirname(BASE_DIR), 'backend'))
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", f'{os.path.basename(BASE_DIR)}.core.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'backend.core.settings')
 django.setup()
 
 config = SafeConfigParser()
