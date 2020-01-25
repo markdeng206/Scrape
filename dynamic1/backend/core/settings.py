@@ -15,11 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-from configparser import SafeConfigParser
-
-config = SafeConfigParser()
-config.read([os.path.join(BASE_DIR, 'app.cfg')])
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -29,7 +24,9 @@ SECRET_KEY = 'ef34#teuq0btua#(-57w1q5o5--j@98xygimlyfxs*-!i-0-mb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '*'
+]
 
 # Application definition
 
@@ -88,11 +85,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config['pgsql']['database'],
-        'USER': config['pgsql']['user'],
-        'PASSWORD': config['pgsql']['password'],
-        'HOST': config['pgsql']['host'],
-        'PORT': int(config['pgsql']['port']),
+        'NAME': os.getenv('PGSQL_DATABASE', 'scrape_dynamic1'),
+        'USER': os.getenv('PGSQL_USER', 'postgres'),
+        'PASSWORD': os.getenv('PGSQL_PASSWORD', 'postgres'),
+        'HOST': os.getenv('PGSQL_HOST', 'localhost'),
+        'PORT': int(os.getenv('PGSQL_PORT', 5432)),
     }
 }
 

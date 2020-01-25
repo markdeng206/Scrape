@@ -21,9 +21,6 @@ sys.path.append(os.path.join(os.path.dirname(BASE_DIR), 'backend'))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'backend.core.settings')
 django.setup()
 
-config = SafeConfigParser()
-config.read([os.path.join(BASE_DIR, 'app.cfg')])
-
 BOT_NAME = 'movie'
 
 SPIDER_MODULES = ['movie.spiders']
@@ -103,8 +100,8 @@ ITEM_PIPELINES = {
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-PGSQL_HOST = config['pgsql']['host']
-PGSQL_PORT = int(config['pgsql']['port'])
-PGSQL_USER = config['pgsql']['user']
-PGSQL_PASSWORD = config['pgsql']['password']
-PGSQL_DATABASE = config['pgsql']['database']
+PGSQL_HOST = os.getenv('PGSQL_HOST', 'localhost')
+PGSQL_PORT = int(os.getenv('PGSQL_PORT', 5432))
+PGSQL_USER = os.getenv('PGSQL_USER', 'postgres')
+PGSQL_PASSWORD = os.getenv('PGSQL_PASSWORD', 'postgres')
+PGSQL_DATABASE = os.getenv('PGSQL_USER', 'scrape_dynamic1')

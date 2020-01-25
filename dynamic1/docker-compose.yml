@@ -1,0 +1,30 @@
+version: '3'
+services:
+  backend:
+    container_name: 'scrape-dynamic1-backend'
+    restart: always
+    build: ./backend
+    image: 'germey/scrape-dynamic1-backend'
+    depends_on:
+      - 'frontend'
+    ports:
+      - '8000:8000'
+    environment:
+      PGSQL_HOST:
+      PGSQL_PORT:
+      PGSQL_USER:
+      PGSQL_PASSWORD:
+      PGSQL_DATABASE: 'scrape_dynamic1'
+    networks:
+      - default
+  frontend:
+    container_name: 'scrape-dynamic1-frontend'
+    restart: always
+    build: ./frontend
+    image: 'germey/scrape-dynamic1-frontend'
+    ports:
+      - '8083:80'
+    networks:
+      - default
+networks:
+  default:
