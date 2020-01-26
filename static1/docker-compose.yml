@@ -1,0 +1,15 @@
+version: '3'
+services:
+  static1-backend:
+    container_name: 'scrape-static1-backend'
+    restart: always
+    build: ./backend
+    image: 'germey/scrape-static1-backend:${BUILD_NUMBER}'
+    ports:
+      - '8000:8000'
+    environment:
+      PGSQL_HOST:
+      PGSQL_PORT:
+      PGSQL_USER:
+      PGSQL_PASSWORD:
+      PGSQL_DATABASE: 'scrape_static1'
