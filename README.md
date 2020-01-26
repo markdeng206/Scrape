@@ -6,6 +6,10 @@
 
 本平台自爬数据、自建页面、自接反爬，案例稳定后永不过期，适合教学与练习。
 
+### 静态渲染网站
+
+* [static1](http://static1.scrape.cuiqingcai.com/)：猫眼电影数据网站、数据通过服务端渲染。
+
 ### 动态渲染网站
 
 * [dynamic1](http://dynamic1.scrape.cuiqingcai.com/)：猫眼电影数据网站、数据通过 Ajax 加载、页面动态渲染。
