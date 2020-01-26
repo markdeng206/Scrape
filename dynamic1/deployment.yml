@@ -66,6 +66,8 @@ items:
       spec:
         containers:
         - env:
+          - name: APP_ENV
+            value: production
           - name: PGSQL_DATABASE
             value: scrape_dynamic1
           - name: PGSQL_HOST
