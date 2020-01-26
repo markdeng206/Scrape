@@ -24,7 +24,7 @@
                 <span>{{ movie.minute }} 分钟</span>
               </div>
               <div class="m-v-sm info">
-                <span>{{ movie.published_at }}上映</span>
+                <span>{{ movie.published_at }} 上映</span>
               </div>
               <div class="drama">
                 <h3>剧情简介</h3>

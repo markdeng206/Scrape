@@ -24,7 +24,7 @@
                 <span>{{ movie.minute }} 分钟</span>
               </div>
               <div class="m-v-sm info">
-                <span>{{ movie.published_at }}上映</span>
+                <span>{{ movie.published_at }} 上映</span>
               </div>
             </el-col>
             <el-col :xs="5" :sm="5" :md="4">
