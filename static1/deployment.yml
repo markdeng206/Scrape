@@ -33,7 +33,7 @@ items:
     namespace: scrape
   spec:
     replicas: 1
-    revisionHistoryLimit: 2
+    revisionHistoryLimit: 1
     strategy: {}
     template:
       metadata:
@@ -89,6 +89,6 @@ spec:
       http:
         paths:
           - backend:
-              serviceName: static1-frontend
-              servicePort: 80
+              serviceName: static1-backend
+              servicePort: 8000
             path: /
