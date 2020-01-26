@@ -14,7 +14,7 @@
                 <h2 class="m-b-sm">{{ movie.name }} - {{ movie.alias }}</h2>
               </router-link>
               <div class="categories">
-                <el-button class="category" size="mini" type="primary"
+                <el-button class="category" size="mini" type="primary" :key="category"
                            v-for="category in movie.categories">{{ category }}
                 </el-button>
               </div>
@@ -57,7 +57,7 @@
       <el-col :span="18" :offset="3">
         <h2 class="subtitle">导演</h2>
         <el-row :gutter="15" class="directors">
-          <el-col :span="4" v-for="director in movie.directors" class="director">
+          <el-col :span="4" v-for="director in movie.directors" class="director" :key="director.name">
             <el-card shadow="hover">
               <img :src="director.image" class="image">
               <p class="name text-center m-b-none m-t-xs">{{ director.name }}</p>
@@ -70,7 +70,7 @@
       <el-col :span="18" :offset="3">
         <h2 class="subtitle">演员</h2>
         <el-row :gutter="15" class="actors">
-          <el-col :span="4" v-for="actor in movie.actors" class="actor">
+          <el-col :span="4" v-for="actor in movie.actors" class="actor" :key="actor.name">
             <el-card shadow="hover" class="m-b">
               <img :src="actor.image" class="image">
               <el-tooltip class="item" effect="dark" :content="actor.name" placement="right">
@@ -88,7 +88,7 @@
       <el-col :span="18" :offset="3">
         <h2 class="subtitle">剧照</h2>
         <el-row :gutter="15" class="photos">
-          <el-col :span="3" v-for="photo in movie.photos" class="photo">
+          <el-col :span="3" v-for="photo in movie.photos" class="photo" :key="photo">
             <el-card shadow="hover" class="m-b">
               <el-image :src="photo" fit="cover" lazy :preview-src-list="photos"></el-image>
             </el-card>

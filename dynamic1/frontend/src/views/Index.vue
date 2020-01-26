@@ -2,7 +2,7 @@
   <div id="index">
     <el-row v-loading="loading">
       <el-col :span="18" :offset="3">
-        <el-card v-for="movie in movies" shadow="hover" class="item m-t">
+        <el-card v-for="movie in movies" shadow="hover" class="item m-t" :key="movie.name">
           <el-row>
             <el-col :xs="8" :sm="6" :md="4">
               <router-link :to="{ name: 'detail', params: { id: movie.id }}">
@@ -14,7 +14,7 @@
                 <h2 class="m-b-sm">{{ movie.name }} - {{ movie.alias }}</h2>
               </router-link>
               <div class="categories">
-                <el-button class="category" size="mini" type="primary"
+                <el-button class="category" size="mini" type="primary" :key="category"
                            v-for="category in movie.categories">{{ category }}
                 </el-button>
               </div>

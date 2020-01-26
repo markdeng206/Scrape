@@ -1,0 +1,49 @@
+name: Deploy to Kubernetes
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Docker Login
+        uses: Azure/docker-login@v1
+        with:
+          username: germey
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Set Kubectl
+        uses: Azure/k8s-set-context@v1
+        with:
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+      - name: Test Kubectl
+        run: |
+          kubectl get nodes
+          kubectl get svc -n scrape
+      - name: Generate build number
+        uses: einaregilsson/build-number@v2
+        with:
+          token: ${{secrets.github_token}}
+      - name: Get Build Number
+        run: |
+          echo $BUILD_NUMBER
+      - name: Build Push Deploy
+        run: |
+          DIR=$(ls .)
+          for dir in ${DIR}; do
+            if [ -d ${dir} ]; then
+              echo "Enter" $dir
+              cd $dir
+              echo "Start to build and push images to Docker Hub"
+              docker-compose build
+              docker-compose push
+              echo "Start to deploy images to kubernetes"
+              cat deployment.yml | sed 's/\${TAG}/'"$BUILD_NUMBER"'/g' | kubectl apply -f -
+              cd ..
+            fi
+          done
+          echo "Finished"
+
