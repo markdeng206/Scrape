@@ -53,6 +53,7 @@ items:
     namespace: scrape
   spec:
     replicas: 1
+    revisionHistoryLimit: 2
     strategy: {}
     template:
       metadata:
@@ -107,6 +108,7 @@ items:
     namespace: scrape
   spec:
     replicas: 1
+    revisionHistoryLimit: 2
     strategy: {}
     template:
       metadata:
