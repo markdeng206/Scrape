@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="/favicon.ico">
+  <title>Scrape | Movie</title>
+  {% block css %}
+  {% load static %}
+  <link href="{% static 'css/chunk-5d5a0784.0f4be6d1.css' %}" type="text/css" rel="stylesheet">
+  <link href="{% static 'css/chunk-6c01f32c.109dd10f.css' %}" type="text/css" rel="stylesheet">
+  <link href="{% static 'css/app.ea9d802a.css' %}" type="text/css" rel="stylesheet">
+  {% endblock %}
+</head>
+<body>
+<div id="app">
+  <div data-v-74e8b908="" class="el-row" id="header">
+    <div data-v-74e8b908="" class="container el-col el-col-18 el-col-offset-3">
+      <div data-v-74e8b908="" class="el-row">
+        <div data-v-74e8b908="" class="logo el-col el-col-4">
+          <a data-v-74e8b908="" href="/" class="router-link-exact-active router-link-active">
+            <img data-v-74e8b908="" src="{% static '/img/logo.a508a8f0.png' %}" class="logo-image">
+            <span data-v-74e8b908="" class="logo-title">Scrape</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% block app %}
+  {% endblock %}
+</div>
+</body>
