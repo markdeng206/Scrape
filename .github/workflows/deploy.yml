@@ -38,10 +38,10 @@ jobs:
               echo "Enter" $dir
               cd $dir
               echo "Start to build and push images to Docker Hub"
-              docker-compose build
-              docker-compose push
-              echo "Start to deploy images to kubernetes"
-              cat deployment.yml | sed 's/\${TAG}/'"$BUILD_NUMBER"'/g' | kubectl apply -f -
+              docker-compose build || true
+              docker-compose push || true
+              echo "Start to deploy images to kubernetes" || true
+              cat deployment.yml | sed 's/\${TAG}/'"$BUILD_NUMBER"'/g' | kubectl apply -f - || true
               cd ..
             fi
           done
