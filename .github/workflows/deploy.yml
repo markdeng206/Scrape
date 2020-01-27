@@ -6,6 +6,7 @@ on:
     paths-ignore:
       - .gitignore
       - README.md
+      - '.github/ISSUE_TEMPLATE/**'
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -28,7 +29,7 @@ jobs:
       - name: Generate build number
         uses: einaregilsson/build-number@v2
         with:
-          token: ${{secrets.github_token}}
+          token: ${{ secrets.github_token }}
       - name: Get Build Number
         run: |
           echo $BUILD_NUMBER
