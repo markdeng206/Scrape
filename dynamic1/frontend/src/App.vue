@@ -14,7 +14,7 @@
 </style>
 
 <script>
-  import HeadBar from "./components/HeadBar";
+  import HeadBar from './components/HeadBar'
 
   export default {
     name: 'App',
