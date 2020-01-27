@@ -20,4 +20,4 @@
 
 ## 自动部署
 
-本平台采用 GitHub Actions + Kubernetes 自动化部署。
+本平台采用 GitHub Actions + Kubernetes 自动化部署，详情见 [WorkFlow](https://github.com/Germey/Scrape/tree/master/.github/workflows)。
