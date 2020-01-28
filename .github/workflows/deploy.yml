@@ -26,7 +26,7 @@ jobs:
         run: |
           kubectl get nodes
           kubectl get svc -n scrape
-      - name: Generate build number
+      - name: Generate Build Number
         uses: einaregilsson/build-number@v2
         with:
           token: ${{ secrets.github_token }}
