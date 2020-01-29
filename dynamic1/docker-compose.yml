@@ -12,7 +12,7 @@ services:
       PGSQL_PORT:
       PGSQL_USER:
       PGSQL_PASSWORD:
-      PGSQL_DATABASE: 'scrape_dynamic1'
+      PGSQL_DATABASE: 'scrape_maoyan'
   dynamic1-frontend:
     container_name: 'scrape-dynamic1-frontend'
     restart: always

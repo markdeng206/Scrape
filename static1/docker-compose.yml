@@ -12,4 +12,4 @@ services:
       PGSQL_PORT:
       PGSQL_USER:
       PGSQL_PASSWORD:
-      PGSQL_DATABASE: 'scrape_static1'
+      PGSQL_DATABASE: 'scrape_maoyan'

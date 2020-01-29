@@ -69,7 +69,7 @@ items:
           - name: APP_ENV
             value: production
           - name: PGSQL_DATABASE
-            value: scrape_dynamic1
+            value: scrape_maoyan
           - name: PGSQL_HOST
             valueFrom:
               secretKeyRef:
