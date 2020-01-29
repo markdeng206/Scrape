@@ -14,11 +14,12 @@
 
 ### 静态渲染网站
 
-* [static1](http://static1.scrape.cuiqingcai.com/)：猫眼电影数据网站、数据通过服务端渲染，适合基本爬虫练习。
+* [static1](http://static1.scrape.cuiqingcai.com/)：猫眼电影数据网站，数据通过服务端渲染，适合基本爬虫练习。
 
 ### 动态渲染网站
 
-* [dynamic1](http://dynamic1.scrape.cuiqingcai.com/)：猫眼电影数据网站、数据通过 Ajax 加载、页面动态渲染，适合 Ajax 分析和动态页面渲染爬取。
+* [dynamic1](http://dynamic1.scrape.cuiqingcai.com/)：猫眼电影数据网站，数据通过 Ajax 加载，页面动态渲染，适合 Ajax 分析和动态页面渲染爬取。
+* [dynamic2](http://dynamic2.scrape.cuiqingcai.com/)：猫眼电影数据网站，数据通过 Ajax 加载，数据接口参数加密且有时间限制，适合动态页面渲染爬取或 JavaScript 逆向分析。
 
 ## 自动部署
 
