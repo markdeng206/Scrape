@@ -11,6 +11,11 @@ const router = new Router({
       name: 'index',
       component: () => import('./views/Login')
     },
+    {
+      path: '/success',
+      name: 'success',
+      component: () => import('./views/Success')
+    },
   ]
 })
 

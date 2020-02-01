@@ -11,11 +11,15 @@ import './assets/scss/style.scss'
 import './assets/scss/round.scss'
 import './assets/scss/pm.scss'
 
+require('@/assets/js/geetest.js');
+
 Vue.use(VueAxios, axios)
 
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false
+
+Vue.prototype.$initGeet = initGeetest
 
 new Vue({
   router,
