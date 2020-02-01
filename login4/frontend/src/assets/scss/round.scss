@@ -1,0 +1,98 @@
+$radius: 15px;
+
+/* card */
+.el-card {
+  border-radius: $radius;
+}
+
+/* message */
+.el-message {
+  border-radius: $radius;
+}
+
+/* tooltip */
+.el-tooltip__popper {
+  border-radius: $radius;
+}
+
+/* popover */
+.el-popover {
+  border-radius: $radius;
+}
+
+/* dialogue */
+.el-dialog {
+  border-radius: $radius;
+}
+
+/* button */
+.el-button {
+  border-radius: $radius;
+}
+
+.el-radio-button:last-child .el-radio-button__inner {
+  border-top-right-radius: $radius;
+  border-bottom-right-radius: $radius;
+}
+
+.el-radio-button:first-child .el-radio-button__inner {
+  border-top-left-radius: $radius;
+  border-bottom-left-radius: $radius;
+}
+
+.el-radio-button:first-child:last-child .el-radio-button__inner {
+  border-radius: $radius;
+}
+
+/* input */
+.el-input__inner {
+  border-radius: $radius;
+}
+
+.el-input-group__append {
+  border-radius: 0 $radius $radius 0;
+}
+
+.el-input-group__prepend {
+  border-radius: $radius 0 0 $radius;
+}
+
+.el-pagination .el-select .el-input .el-input__inner {
+  border-radius: $radius;
+}
+
+.el-input-number__decrease {
+  border-radius: $radius 0 0 $radius;
+}
+
+.el-input-number__increase {
+  border-radius: 0 $radius $radius 0;
+}
+
+.el-input-number.is-controls-right .el-input-number__increase {
+  border-radius: 0 $radius 0 0;
+}
+
+.el-input-number.is-controls-right .el-input-number__decrease {
+  border-radius: 0 0 $radius 0;
+}
+
+.el-textarea__inner {
+  border-radius: $radius;
+}
+
+/* collapse */
+.el-collapse-item:first-child .el-collapse-item__header {
+  border-top-left-radius: $radius;
+  border-top-right-radius: $radius;
+}
+
+.el-collapse-item:last-child .el-collapse-item__header {
+  border-bottom-left-radius: $radius;
+  border-bottom-right-radius: $radius;
+}
+
+/* tag */
+.el-tag {
+  border-radius: $radius;
+}

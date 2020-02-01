@@ -1,0 +1,9 @@
+version: '3'
+services:
+  login2-frontend:
+    container_name: 'scrape-login2-frontend'
+    restart: always
+    build: ./frontend
+    image: 'germey/scrape-login2-frontend:${BUILD_NUMBER}'
+    ports:
+      - '8080:80'

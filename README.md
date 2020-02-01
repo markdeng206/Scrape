@@ -11,6 +11,9 @@
 ### 登录验证网站
 
 * [login1](http://login1.scrape.cuiqingcai.com/)：登录时用户名和密码经过加密处理，适合 JavaScript 逆向分析。
+* [login2](http://login2.scrape.cuiqingcai.com/)：对接滑动验证码，适合滑动验证码分析处理。
+* [login3](http://login3.scrape.cuiqingcai.com/)：对接点选验证码，适合点选验证码分析处理。
+* [login4](http://login4.scrape.cuiqingcai.com/)：对接拼图逻辑验证码，适合拼图逻辑验证码分析处理。
 
 ### 静态渲染网站
 
