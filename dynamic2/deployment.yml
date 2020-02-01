@@ -137,7 +137,14 @@ kind: Ingress
 metadata:
   name: ingress-dynamic2
   namespace: scrape
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  tls:
+    - hosts:
+        - dynamic2.scrape.cuiqingcai.com
+      secretName: tls-scrape-cuiqingcai-com
   rules:
     - host: dynamic2.scrape.cuiqingcai.com
       http:

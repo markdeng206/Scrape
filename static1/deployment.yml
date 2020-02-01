@@ -85,7 +85,14 @@ kind: Ingress
 metadata:
   name: ingress-static1
   namespace: scrape
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  tls:
+    - hosts:
+        - static1.scrape.cuiqingcai.com
+      secretName: tls-scrape-cuiqingcai-com
   rules:
     - host: static1.scrape.cuiqingcai.com
       http:
