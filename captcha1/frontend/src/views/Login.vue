@@ -17,7 +17,7 @@
                 </el-tooltip>
               </el-form-item>
               <el-form-item>
-                <geetest :show="verify" @success="onSuccessCaptcha"></geetest>
+                <geetest @success="onSuccessCaptcha" ref="geetest"></geetest>
                 <el-button type="primary" @click="onSubmit">登录</el-button>
               </el-form-item>
             </el-form>
@@ -36,7 +36,6 @@
     name: 'Login',
     data() {
       return {
-        verify: false,
         verified: false,
         form: {
           username: null,
@@ -51,8 +50,7 @@
     methods: {
       onSubmit() {
         if (!this.verified) {
-          // show captcha if first time
-          this.verify = true
+          this.$refs.geetest.onVerify()
           return
         }
         this.$http.post(store.state.url.login, this.form)
@@ -69,10 +67,8 @@
           })
       },
       onSuccessCaptcha(params) {
-        Object(this.form.captcha, params)
         this.$set(this.form, 'captcha', params)
         this.verified = true
-        this.verify = false
         console.log('verified successfully')
         this.onSubmit()
       }

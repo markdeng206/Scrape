@@ -6,30 +6,38 @@
   export default {
     name: 'Geetest',
     props: {
-      show: {
-        type: Boolean,
-        default() {
-          return false
-        }
-      }
+      // verified: {
+      //   type: Boolean,
+      //   default() {
+      //     return false
+      //   }
+      // }
     },
     data() {
       return {
         initURL: this.$store.state.url.init,
         initData: null,
         captchaObj: null,
+        verified: false
       }
     },
     methods: {
       onVerify() {
-        if (!this.captchaObj) return
-        this.captchaObj.verify()
+        if (this.verified) return
+        if (!this.captchaObj) {
+          this.initGeetest()
+          console.log('reinit captcha')
+          setTimeout(() => {
+            console.log('verifying...')
+            this.captchaObj.verify()
+          }, 2000)
+        } else {
+          console.log('verifying...')
+          this.captchaObj.verify()
+        }
       },
       onHandleGeetest(captchaObj) {
-        console.log('captchddaObj', captchaObj)
-        if (!captchaObj) {
-          this.initGeetest()
-        }
+        console.log('init captchaObj', captchaObj)
         this.captchaObj = captchaObj
         this.captchaObj
           .onSuccess(() => {
@@ -41,9 +49,11 @@
               status: this.initData.success,
               type: 'geetest'
             }
+            this.verified = true
             this.$emit('success', params)
           })
           .onError(function () {
+            this.verified = false
           })
       },
       initGeetest() {
@@ -66,26 +76,8 @@
           })
       }
     },
-    computed: {},
-    created() {
-      // 页面创建，调用函数
-      this.initGeetest()
-    },
     mounted() {
-    },
-    watch: {
-      show: function (val) {
-        if (val !== true) return
-        // if captcha not loaded
-        if (!this.captchaObj) {
-          this.initGeetest()
-          setTimeout(() => {
-            this.onVerify()
-          })
-        } else {
-          this.onVerify()
-        }
-      }
+      this.initGeetest()
     }
   }
 </script>
