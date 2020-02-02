@@ -18,5 +18,3 @@ services:
       - 'captcha1-backend'
     ports:
       - '8083:80'
-    environment:
-      BACKEND_HOST: 'captcha1-backend'

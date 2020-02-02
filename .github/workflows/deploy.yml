@@ -40,6 +40,7 @@ jobs:
             if [ -d ${dir} ]; then
               echo "Enter" $dir
               cd $dir
+              sh process.sh || true
               echo "Start to build and push images to Docker Hub"
               docker-compose build || true
               docker-compose push || true
