@@ -1,112 +1,115 @@
 apiVersion: v1
 items:
-- apiVersion: v1
-  kind: Service
-  metadata:
-    annotations:
-      kompose.cmd: kompose -f docker-compose.yml -o kubernetes.yml convert
-      kompose.version: 1.20.0 ()
-    creationTimestamp: null
-    labels:
-      io.kompose.service: captcha1-backend
-    name: captcha1-backend
-    namespace: scrape
-  spec:
-    ports:
-    - name: "8000"
-      port: 8000
-      targetPort: 8000
-    selector:
-      io.kompose.service: captcha1-backend
-  status:
-    loadBalancer: {}
-- apiVersion: v1
-  kind: Service
-  metadata:
-    annotations:
-      kompose.cmd: kompose -f docker-compose.yml -o kubernetes.yml convert
-      kompose.version: 1.20.0 ()
-    creationTimestamp: null
-    labels:
-      io.kompose.service: captcha1-frontend
-    name: captcha1-frontend
-    namespace: scrape
-  spec:
-    ports:
-    - name: "8083"
-      port: 8083
-      targetPort: 80
-    selector:
-      io.kompose.service: captcha1-frontend
-  status:
-    loadBalancer: {}
-- apiVersion: extensions/v1beta1
-  kind: Deployment
-  metadata:
-    annotations:
-      kompose.cmd: kompose -f docker-compose.yml -o kubernetes.yml convert
-      kompose.version: 1.20.0 ()
-    creationTimestamp: null
-    labels:
-      io.kompose.service: captcha1-backend
-    name: captcha1-backend
-    namespace: scrape
-  spec:
-    replicas: 1
-    revisionHistoryLimit: 1
-    strategy: {}
-    template:
-      metadata:
-        annotations:
-          kompose.cmd: kompose -f docker-compose.yml -o kubernetes.yml convert
-          kompose.version: 1.20.0 ()
-        creationTimestamp: null
-        labels:
-          io.kompose.service: captcha1-backend
-      spec:
-        containers:
-        - env:
-          - name: CAPTCHA_TYPE
-            value: SLIDE
-          image: germey/scrape-captcha1-backend:${TAG}
-          name: scrape-captcha1-backend
-          ports:
-          - containerPort: 8000
-          resources: {}
-        restartPolicy: Always
-  status: {}
-- apiVersion: extensions/v1beta1
-  kind: Deployment
-  metadata:
-    annotations:
-      kompose.cmd: kompose -f docker-compose.yml -o kubernetes.yml convert
-      kompose.version: 1.20.0 ()
-    creationTimestamp: null
-    labels:
-      io.kompose.service: captcha1-frontend
-    name: captcha1-frontend
-    namespace: scrape
-  spec:
-    replicas: 1
-    revisionHistoryLimit: 1
-    strategy: {}
-    template:
-      metadata:
-        annotations:
-          kompose.cmd: kompose -f docker-compose.yml -o kubernetes.yml convert
-          kompose.version: 1.20.0 ()
-        creationTimestamp: null
-        labels:
-          io.kompose.service: captcha1-frontend
-      spec:
-        containers:
-        - image: germey/scrape-captcha1-frontend:${TAG}
-          name: scrape-captcha1-frontend
-          ports:
-          - containerPort: 80
-          resources: {}
-        restartPolicy: Always
-  status: {}
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      annotations:
+        kompose.cmd: kompose -f docker-compose.yml -o kubernetes.yml convert
+        kompose.version: 1.20.0 ()
+      creationTimestamp: null
+      labels:
+        io.kompose.service: captcha1-backend
+      name: captcha1-backend
+      namespace: scrape
+    spec:
+      ports:
+        - name: "8000"
+          port: 8000
+          targetPort: 8000
+      selector:
+        io.kompose.service: captcha1-backend
+    status:
+      loadBalancer: {}
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      annotations:
+        kompose.cmd: kompose -f docker-compose.yml -o kubernetes.yml convert
+        kompose.version: 1.20.0 ()
+      creationTimestamp: null
+      labels:
+        io.kompose.service: captcha1-frontend
+      name: captcha1-frontend
+      namespace: scrape
+    spec:
+      ports:
+        - name: "8083"
+          port: 8083
+          targetPort: 80
+      selector:
+        io.kompose.service: captcha1-frontend
+    status:
+      loadBalancer: {}
+  - apiVersion: extensions/v1beta1
+    kind: Deployment
+    metadata:
+      annotations:
+        kompose.cmd: kompose -f docker-compose.yml -o kubernetes.yml convert
+        kompose.version: 1.20.0 ()
+      creationTimestamp: null
+      labels:
+        io.kompose.service: captcha1-backend
+      name: captcha1-backend
+      namespace: scrape
+    spec:
+      replicas: 1
+      revisionHistoryLimit: 1
+      strategy: {}
+      template:
+        metadata:
+          annotations:
+            kompose.cmd: kompose -f docker-compose.yml -o kubernetes.yml convert
+            kompose.version: 1.20.0 ()
+          creationTimestamp: null
+          labels:
+            io.kompose.service: captcha1-backend
+        spec:
+          containers:
+            - env:
+                - name: CAPTCHA_TYPE
+                  value: SLIDE
+              image: germey/scrape-captcha1-backend:${TAG}
+              name: scrape-captcha1-backend
+              ports:
+                - containerPort: 8000
+              resources: {}
+          restartPolicy: Always
+    status: {}
+  - apiVersion: extensions/v1beta1
+    kind: Deployment
+    metadata:
+      annotations:
+        kompose.cmd: kompose -f docker-compose.yml -o kubernetes.yml convert
+        kompose.version: 1.20.0 ()
+      creationTimestamp: null
+      labels:
+        io.kompose.service: captcha1-frontend
+      name: captcha1-frontend
+      namespace: scrape
+    spec:
+      replicas: 1
+      revisionHistoryLimit: 1
+      strategy: {}
+      template:
+        metadata:
+          annotations:
+            kompose.cmd: kompose -f docker-compose.yml -o kubernetes.yml convert
+            kompose.version: 1.20.0 ()
+          creationTimestamp: null
+          labels:
+            io.kompose.service: captcha1-frontend
+        spec:
+          containers:
+            - image: germey/scrape-captcha1-frontend:${TAG}
+              name: scrape-captcha1-frontend
+              ports:
+                - containerPort: 80
+              resources: {}
+              env:
+                - name: BACKEND_HOST
+                  value: captcha1-backend
+          restartPolicy: Always
+    status: {}
 kind: List
 metadata: {}
 ---

@@ -1,9 +1,22 @@
 version: '3'
 services:
-  login2-frontend:
-    container_name: 'scrape-login2-frontend'
+  captcha1-backend:
+    container_name: 'scrape-captcha1-backend'
+    restart: always
+    build: ./backend
+    image: 'germey/scrape-captcha1-backend:${BUILD_NUMBER}'
+    ports:
+      - '8000:8000'
+    environment:
+      CAPTCHA_TYPE: 'SLIDE'
+  captcha1-frontend:
+    container_name: 'scrape-captcha1-frontend'
     restart: always
     build: ./frontend
-    image: 'germey/scrape-login2-frontend:${BUILD_NUMBER}'
+    image: 'germey/scrape-captcha1-frontend:${BUILD_NUMBER}'
+    depends_on:
+      - 'captcha1-backend'
     ports:
-      - '8080:80'
+      - '8083:80'
+    environment:
+      BACKEND_HOST: 'captcha1-backend'
