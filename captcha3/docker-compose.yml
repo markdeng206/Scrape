@@ -1,0 +1,20 @@
+version: '3'
+services:
+  captcha3-backend:
+    container_name: 'scrape-captcha3-backend'
+    restart: always
+    build: ./backend
+    image: 'germey/scrape-captcha3-backend:${BUILD_NUMBER}'
+    ports:
+      - '8000:8000'
+    environment:
+      CAPTCHA_TYPE: 'CLICK'
+  captcha3-frontend:
+    container_name: 'scrape-captcha3-frontend'
+    restart: always
+    build: ./frontend
+    image: 'germey/scrape-captcha3-frontend:${BUILD_NUMBER}'
+    depends_on:
+      - 'captcha3-backend'
+    ports:
+      - '8083:80'

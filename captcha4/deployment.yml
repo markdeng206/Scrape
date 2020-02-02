@@ -8,8 +8,8 @@ items:
         kompose.version: 1.20.0 ()
       creationTimestamp: null
       labels:
-        io.kompose.service: captcha2-backend
-      name: captcha2-backend
+        io.kompose.service: captcha4-backend
+      name: captcha4-backend
       namespace: scrape
     spec:
       ports:
@@ -17,7 +17,7 @@ items:
           port: 8000
           targetPort: 8000
       selector:
-        io.kompose.service: captcha2-backend
+        io.kompose.service: captcha4-backend
     status:
       loadBalancer: {}
   - apiVersion: v1
@@ -28,8 +28,8 @@ items:
         kompose.version: 1.20.0 ()
       creationTimestamp: null
       labels:
-        io.kompose.service: captcha2-frontend
-      name: captcha2-frontend
+        io.kompose.service: captcha4-frontend
+      name: captcha4-frontend
       namespace: scrape
     spec:
       ports:
@@ -37,7 +37,7 @@ items:
           port: 8083
           targetPort: 80
       selector:
-        io.kompose.service: captcha2-frontend
+        io.kompose.service: captcha4-frontend
     status:
       loadBalancer: {}
   - apiVersion: extensions/v1beta1
@@ -48,8 +48,8 @@ items:
         kompose.version: 1.20.0 ()
       creationTimestamp: null
       labels:
-        io.kompose.service: captcha2-backend
-      name: captcha2-backend
+        io.kompose.service: captcha4-backend
+      name: captcha4-backend
       namespace: scrape
     spec:
       replicas: 1
@@ -62,14 +62,14 @@ items:
             kompose.version: 1.20.0 ()
           creationTimestamp: null
           labels:
-            io.kompose.service: captcha2-backend
+            io.kompose.service: captcha4-backend
         spec:
           containers:
             - env:
                 - name: CAPTCHA_TYPE
-                  value: ICON
-              image: germey/scrape-captcha2-backend:${TAG}
-              name: scrape-captcha2-backend
+                  value: PHRASE
+              image: germey/scrape-captcha4-backend:${TAG}
+              name: scrape-captcha4-backend
               ports:
                 - containerPort: 8000
               resources: {}
@@ -83,8 +83,8 @@ items:
         kompose.version: 1.20.0 ()
       creationTimestamp: null
       labels:
-        io.kompose.service: captcha2-frontend
-      name: captcha2-frontend
+        io.kompose.service: captcha4-frontend
+      name: captcha4-frontend
       namespace: scrape
     spec:
       replicas: 1
@@ -97,11 +97,11 @@ items:
             kompose.version: 1.20.0 ()
           creationTimestamp: null
           labels:
-            io.kompose.service: captcha2-frontend
+            io.kompose.service: captcha4-frontend
         spec:
           containers:
-            - image: germey/scrape-captcha2-frontend:${TAG}
-              name: scrape-captcha2-frontend
+            - image: germey/scrape-captcha4-frontend:${TAG}
+              name: scrape-captcha4-frontend
               ports:
                 - containerPort: 80
               resources: {}
@@ -113,7 +113,7 @@ metadata: {}
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: ingress-captcha2
+  name: ingress-captcha4
   namespace: scrape
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
@@ -121,13 +121,13 @@ metadata:
 spec:
   tls:
     - hosts:
-        - captcha2.scrape.cuiqingcai.com
+        - captcha4.scrape.cuiqingcai.com
       secretName: tls-scrape-cuiqingcai-com
   rules:
-    - host: captcha2.scrape.cuiqingcai.com
+    - host: captcha4.scrape.cuiqingcai.com
       http:
         paths:
           - backend:
-              serviceName: captcha2-frontend
+              serviceName: captcha4-frontend
               servicePort: 80
             path: /
