@@ -4,7 +4,7 @@
 </template>
 <script>
   export default {
-    name: 'Geetest'
+    name: 'Geetest',
     props: {
       show: {
         type: Boolean,

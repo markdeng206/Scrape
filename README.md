@@ -8,21 +8,27 @@
 
 本平台自爬数据、自建页面、自接反爬，案例稳定后永不过期，适合教学与练习。
 
-### 登录验证网站
+### 模拟登录网站
 
-* [login1](http://login1.scrape.cuiqingcai.com/)：登录时用户名和密码经过加密处理，适合 JavaScript 逆向分析。
-* [login2](http://login2.scrape.cuiqingcai.com/)：对接滑动验证码，适合滑动验证码分析处理。
-* [login3](http://login3.scrape.cuiqingcai.com/)：对接点选验证码，适合点选验证码分析处理。
-* [login4](http://login4.scrape.cuiqingcai.com/)：对接拼图逻辑验证码，适合拼图逻辑验证码分析处理。
+* [login1](https://login1.scrape.cuiqingcai.com/)：登录时用户名和密码经过加密处理，适合 JavaScript 逆向分析。
+
+### 验证码网站
+
+* [captcha1](https://captcha1.scrape.cuiqingcai.com/)：对接滑动拼图验证码，适合滑动拼图验证码分析处理。
+* [captcha2](https://captcha2.scrape.cuiqingcai.com/)：对接图标点选验证码，适合图标点选验证码分析处理。
+* [captcha3](https://captcha3.scrape.cuiqingcai.com/)：对接图文点选验证码，适合图文点选验证码分析处理。
+* [captcha4](https://captcha4.scrape.cuiqingcai.com/)：对接语序分析验证码，适合语序分析验证码分析处理。
+* [captcha5](https://captcha5.scrape.cuiqingcai.com/)：对接空间推理验证码，适合空间推理验证码分析处理。
+* [captcha6](https://captcha6.scrape.cuiqingcai.com/)：对接九宫格识图验证码，适合九宫格识图验证码分析处理。
 
 ### 静态渲染网站
 
-* [static1](http://static1.scrape.cuiqingcai.com/)：猫眼电影数据网站，数据通过服务端渲染，适合基本爬虫练习。
+* [static1](https://static1.scrape.cuiqingcai.com/)：猫眼电影数据网站，数据通过服务端渲染，适合基本爬虫练习。
 
 ### 动态渲染网站
 
-* [dynamic1](http://dynamic1.scrape.cuiqingcai.com/)：猫眼电影数据网站，数据通过 Ajax 加载，页面动态渲染，适合 Ajax 分析和动态页面渲染爬取。
-* [dynamic2](http://dynamic2.scrape.cuiqingcai.com/)：猫眼电影数据网站，数据通过 Ajax 加载，数据接口参数加密且有时间限制，适合动态页面渲染爬取或 JavaScript 逆向分析。
+* [dynamic1](https://dynamic1.scrape.cuiqingcai.com/)：猫眼电影数据网站，数据通过 Ajax 加载，页面动态渲染，适合 Ajax 分析和动态页面渲染爬取。
+* [dynamic2](https://dynamic2.scrape.cuiqingcai.com/)：猫眼电影数据网站，数据通过 Ajax 加载，数据接口参数加密且有时间限制，适合动态页面渲染爬取或 JavaScript 逆向分析。
 
 ## 自动部署
 
