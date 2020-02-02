@@ -1,0 +1,45 @@
+name: Push to GitHub Packages
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - .gitignore
+      - README.md
+      - '.github/ISSUE_TEMPLATE/**'
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Setup Docker
+        uses: docker-practice/actions-setup-docker@0.0.1
+      - name: Docker Login
+        run: |
+          docker login -u Germey -p ${{ secrets.github_token }} docker.pkg.github.com
+      - name: Generate Build Number
+        uses: einaregilsson/build-number@v2
+        with:
+          token: ${{ secrets.github_token }}
+      - name: Get Build Number
+        run: |
+          echo $BUILD_NUMBER
+      - name: Build Push Deploy
+        run: |
+          DIR=$(ls .)
+          for dir in ${DIR}; do
+            if [ -d ${dir} ]; then
+              echo "Enter" $dir
+              cd $dir
+              sh process.sh || true
+              echo "Start to build and push images to Docker Hub"
+              cat docker-compose.yml | sed 's/germey\/scrape\-\(.*\):/docker.pkg.github.com\/germey\/scrape\/\1:/' > docker-compose.yml.bak && mv docker-compose.yml.bak docker-compose.yml
+              docker-compose build || true
+              docker-compose push || true
+              echo "Finished" $dir
+              cd ..
+              echo "Leave" $dir
+            fi
+          done
+          echo "Finished"
