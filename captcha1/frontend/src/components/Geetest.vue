@@ -1,10 +1,10 @@
 <template>
   <div>
-    <i ref="btn"></i>
   </div>
 </template>
 <script>
   export default {
+    name: 'Geetest'
     props: {
       show: {
         type: Boolean,
@@ -21,8 +21,15 @@
       }
     },
     methods: {
+      onVerify() {
+        if (!this.captchaObj) return
+        this.captchaObj.verify()
+      },
       onHandleGeetest(captchaObj) {
-        console.log('success', captchaObj)
+        console.log('captchddaObj', captchaObj)
+        if (!captchaObj) {
+          this.initGeetest()
+        }
         this.captchaObj = captchaObj
         this.captchaObj
           .onSuccess(() => {
@@ -34,17 +41,10 @@
               status: this.initData.success,
               type: 'geetest'
             }
-            // 极验校验的参数，将其传给服务端，进行校验。
-            console.log(
-              "3，图形验证通过，将数据传递给父组件，进行服务端验证"
-            )
-            console.log('params', params)
             this.$emit('success', params)
           })
           .onError(function () {
-            //   图形验证失败
           })
-
       },
       initGeetest() {
         this.axios
@@ -52,7 +52,6 @@
             this.initURL + '?t=' + new Date().getTime()
           )
           .then(({data: data}) => {
-            console.log("1,页面初始化，调用极验接口1，进行图形验证码的加载")
             this.initData = data
             this.$initGeet(
               {
@@ -67,19 +66,25 @@
           })
       }
     },
-
     computed: {},
-
     created() {
       // 页面创建，调用函数
       this.initGeetest()
     },
-
     mounted() {
     },
     watch: {
-      show: function () {
-        this.captchaObj.verify()
+      show: function (val) {
+        if (val !== true) return
+        // if captcha not loaded
+        if (!this.captchaObj) {
+          this.initGeetest()
+          setTimeout(() => {
+            this.onVerify()
+          })
+        } else {
+          this.onVerify()
+        }
       }
     }
   }

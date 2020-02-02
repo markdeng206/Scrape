@@ -7,13 +7,17 @@
             <el-form :model="form" label-width="80px">
               <h2>登录</h2>
               <el-form-item label="用户名">
-                <el-input v-model="form.username"></el-input>
+                <el-tooltip class="item" effect="dark" content="admin" placement="right">
+                  <el-input v-model="form.username"></el-input>
+                </el-tooltip>
               </el-form-item>
               <el-form-item label="密码">
-                <el-input v-model="form.password" type="password"></el-input>
+                <el-tooltip class="item" effect="dark" content="admin" placement="right">
+                  <el-input v-model="form.password" type="password"></el-input>
+                </el-tooltip>
               </el-form-item>
               <el-form-item>
-                <geetest :show="showCaptcha" @success="onSuccessCaptcha"></geetest>
+                <geetest :show="verify" @success="onSuccessCaptcha"></geetest>
                 <el-button type="primary" @click="onSubmit">登录</el-button>
               </el-form-item>
             </el-form>
@@ -32,7 +36,8 @@
     name: 'Login',
     data() {
       return {
-        showCaptcha: false,
+        verify: false,
+        verified: false,
         form: {
           username: null,
           password: null,
@@ -45,9 +50,9 @@
     },
     methods: {
       onSubmit() {
-        if (!this.showCaptcha) {
+        if (!this.verified) {
           // show captcha if first time
-          this.showCaptcha = true
+          this.verify = true
           return
         }
         this.$http.post(store.state.url.login, this.form)
@@ -66,6 +71,9 @@
       onSuccessCaptcha(params) {
         Object(this.form.captcha, params)
         this.$set(this.form, 'captcha', params)
+        this.verified = true
+        this.verify = false
+        console.log('verified successfully')
         this.onSubmit()
       }
     }
