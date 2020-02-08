@@ -3,7 +3,7 @@ items:
   - apiVersion: batch/v1beta1
     kind: CronJob
     metadata:
-      name: scrape-dynamic4-spider
+      name: dynamic4-spider
       namespace: scrape
     spec:
       schedule: "0 * * * *"
