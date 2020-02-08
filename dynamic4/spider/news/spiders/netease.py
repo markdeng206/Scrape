@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
 from random import random
-
 import dateparser
 import pytz
 from scrapy import Request, Spider
@@ -25,18 +24,12 @@ class NeteaseSpider(Spider):
 
     def start_requests(self):
         url = 'http://news.163.com/special/0001220O/news_json.js?' + str(random())
-        print('url', url)
         yield Request(url, callback=self.parse, headers=self.headers)
 
     def parse(self, response):
-        print('response.body.decode()', response.body.decode('gbk'))
         data = response.body.decode('gbk')
         data = data[9:-1]
-
-        print('type', data[:5], data[-2:])
         data = json.loads(data)
-        print('response', )
-        print('re', response.encoding)
         for group in data.get('news'):
             for item in group:
                 news = NewsItem({

@@ -22,7 +22,6 @@ class IfengSpider(Spider):
     def parse_data(self, data):
         news_list = data.get('newsstream', [])
         for item in news_list:
-            print('item', item.get('id'))
             news = NewsItem({
                 'code': item.get('id'),
                 'title': item.get('title'),
