@@ -1,0 +1,24 @@
+version: '3'
+services:
+  dynamic3-backend:
+    container_name: 'scrape-dynamic3-backend'
+    restart: always
+    build: ./backend
+    image: 'germey/scrape-dynamic3-backend:${BUILD_NUMBER}'
+    ports:
+      - '8000:8000'
+    environment:
+      PGSQL_HOST:
+      PGSQL_PORT:
+      PGSQL_USER:
+      PGSQL_PASSWORD:
+      PGSQL_DATABASE: 'scrape_maoyan'
+  dynamic3-frontend:
+    container_name: 'scrape-dynamic3-frontend'
+    restart: always
+    build: ./frontend
+    image: 'germey/scrape-dynamic3-frontend:${BUILD_NUMBER}'
+    depends_on:
+      - 'dynamic3-backend'
+    ports:
+      - '8083:80'
