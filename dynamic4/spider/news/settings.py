@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for movie project
+# Scrapy settings for news project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -8,8 +8,8 @@
 #     https://doc.scrapy.org/en/latest/topics/settings.html
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
-import os
 import sys
+import os
 import django
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,13 +20,13 @@ sys.path.append(os.path.join(os.path.dirname(BASE_DIR), 'backend'))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'backend.core.settings')
 django.setup()
 
-BOT_NAME = 'movie'
+BOT_NAME = 'news'
 
-SPIDER_MODULES = ['movie.spiders']
-NEWSPIDER_MODULE = 'movie.spiders'
+SPIDER_MODULES = ['news.spiders']
+NEWSPIDER_MODULE = 'news.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36'
+USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -57,13 +57,13 @@ DOWNLOAD_DELAY = 10
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 # SPIDER_MIDDLEWARES = {
-#    'movie.middlewares.MovieSpiderMiddleware': 543,
+#    'news.middlewares.NewsSpiderMiddleware': 543,
 # }
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 # DOWNLOADER_MIDDLEWARES = {
-#    'movie.middlewares.MovieDownloaderMiddleware': 543,
+#    'news.middlewares.NewsDownloaderMiddleware': 543,
 # }
 
 # Enable or disable extensions
@@ -75,7 +75,7 @@ DOWNLOAD_DELAY = 10
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'movie.pipelines.PgSQLPipeline': 300,
+    'news.pipelines.PgSQLPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -99,8 +99,4 @@ ITEM_PIPELINES = {
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-PGSQL_HOST = os.getenv('PGSQL_HOST', 'localhost')
-PGSQL_PORT = int(os.getenv('PGSQL_PORT', 5432))
-PGSQL_USER = os.getenv('PGSQL_USER', 'postgres')
-PGSQL_PASSWORD = os.getenv('PGSQL_PASSWORD', 'postgres')
-PGSQL_DATABASE = os.getenv('PGSQL_USER', 'scrape_maoyan')
+DOWNLOAD_TIMEOUT = 10

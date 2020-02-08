@@ -1,0 +1,44 @@
+apiVersion: v1
+items:
+  - apiVersion: batch/v1beta1
+    kind: CronJob
+    metadata:
+      name: scrape-dynamic4-spider
+      namespace: scrape
+    spec:
+      schedule: "0 * * * *"
+      jobTemplate:
+        spec:
+          template:
+            spec:
+              containers:
+                - name: scrape-dynamic4-spider
+                  image: germey/scrape-dynamic4-spider:${TAG}
+                  env:
+                    - name: APP_ENV
+                      value: production
+                    - name: PGSQL_DATABASE
+                      value: scrape_news
+                    - name: PGSQL_HOST
+                      valueFrom:
+                        secretKeyRef:
+                          name: pgsql
+                          key: PGSQL_HOST
+                    - name: PGSQL_PASSWORD
+                      valueFrom:
+                        secretKeyRef:
+                          name: pgsql
+                          key: PGSQL_PASSWORD
+                    - name: PGSQL_PORT
+                      valueFrom:
+                        secretKeyRef:
+                          name: pgsql
+                          key: PGSQL_PORT
+                    - name: PGSQL_USER
+                      valueFrom:
+                        secretKeyRef:
+                          name: pgsql
+                          key: PGSQL_USER
+              restartPolicy: OnFailure
+kind: List
+metadata: {}
