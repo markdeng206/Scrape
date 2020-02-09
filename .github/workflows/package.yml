@@ -27,7 +27,8 @@ jobs:
           echo $BUILD_NUMBER
       - name: Build Push Deploy
         run: |
-          DIR=$(ls .)
+          DIR=$(ls ./src)
+          cd src
           for dir in ${DIR}; do
             if [ -d ${dir} ]; then
               echo "Enter" $dir
