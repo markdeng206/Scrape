@@ -16,11 +16,6 @@ export default new Router({
       path: '/page/:page',
       name: 'indexPage',
       component: () => import('./views/Index.vue')
-    },
-    {
-      path: '/detail/:id',
-      name: 'detail',
-      component: () => import('./views/Detail.vue')
     }
   ]
 })

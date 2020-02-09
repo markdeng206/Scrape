@@ -2,45 +2,27 @@
   <div id="index" v-infinite-scroll="onLoadMore" infinite-scroll-disabled="disabled">
     <el-row>
       <el-col :span="18" :offset="3" class="m-b-lg">
-        <el-card v-for="movie in movies" shadow="hover" class="item m-t" :key="movie.name">
+        <el-card v-for="item in news" shadow="hover" class="item m-t" :key="item.code">
           <el-row>
-            <el-col :xs="8" :sm="6" :md="4">
-              <router-link :to="{ name: 'detail', params: { id: movie.id }}">
-                <img :src="movie.cover" class="cover">
-              </router-link>
-            </el-col>
-            <el-col :xs="9" :sm="13" :md="16" class="p-h">
-              <router-link :to="{ name: 'detail', params: { id: movie.id }}">
-                <h2 class="m-b-sm">{{ movie.name }} - {{ movie.alias }}</h2>
-              </router-link>
-              <div class="categories">
-                <el-button class="category" size="mini" type="primary" :key="category"
-                           v-for="category in movie.categories">{{ category }}
-                </el-button>
-              </div>
-              <div class="m-v-sm info">
-                <span>{{ movie.regions.join('、') }}</span>
-                <span> / </span>
-                <span>{{ movie.minute }} 分钟</span>
-              </div>
-              <div class="m-v-sm info">
-                <span>{{ movie.published_at }} 上映</span>
-              </div>
-            </el-col>
-            <el-col :xs="5" :sm="5" :md="4">
-              <p class="score m-t-md m-b-n-sm">{{ movie.score.toFixed(1) }}</p>
-              <p>
-                <el-rate
-                    :value="movie.score / 2"
-                    disabled
-                    :max="5"
-                    text-color="#ff9900">
-                </el-rate>
+            <el-col :xs="item.thumb? 15: 24" :sm="item.thumb? 18: 24" :md="item.thumb? 20: 24">
+              <h3 class="m-l-md m-t-md">
+                <el-button size="mini" type="primary" class="website m-t-n-xs">{{ item.website }}</el-button>
+                <a :href="item.url" target="_blank" class="m-l-sm">{{ item.title }}</a>
+              </h3>
+              <p class="info m-l-md">
+                <span>{{ item.published_at | moment('timezone', 'Asia/Shanghai', 'YYYY-MM-DD HH:mm:ss') }}
+                </span>
+                <span class="m-l" v-if="item.source && item.source !== item.website">来源： {{ item.source }}</span>
               </p>
+            </el-col>
+            <el-col :xs="9" :sm="6" :md="4" class="text-center" v-if="item.thumb">
+              <div class="thumb">
+                <img :src="item.thumb">
+              </div>
             </el-col>
           </el-row>
         </el-card>
-        <el-card class="item item-flat m-t" v-loading="loading" v-if="!disabled"></el-card>
+        <el-card class="item item-flat m-t" shadow="never" v-loading="loading" v-if="!disabled"></el-card>
       </el-col>
     </el-row>
   </div>
@@ -56,7 +38,7 @@
         total: null,
         page: parseInt(this.$route.params.page || 1),
         limit: 10,
-        movies: null
+        news: null
       }
     },
     computed: {
@@ -69,7 +51,6 @@
     },
     methods: {
       onLoadMore() {
-        console.log('load more')
         this.page += 1
         this.onFetchData()
       },
@@ -82,7 +63,7 @@
           }
         }).then(({data: {results: results, count: total}}) => {
           this.loading = false
-          this.movies = this.movies ? this.movies.concat(results) : results
+          this.news = this.news ? this.news.concat(results) : results
           this.total = total
         })
       }
@@ -98,43 +79,49 @@
   }
 
   #index {
-    height: 1500px;
+    height: 1000px;
     overflow: auto;
   }
 </style>
 <style lang="scss" scoped>
   .item {
-    $height: 220px;
+    $height: 110px;
     width: 100%;
     height: $height;
 
     &.item-flat {
-      height: 100px;
-    }
-
-    .categories {
-      .category {
-        padding: 5px 10px;
-      }
-    }
-
-    .cover {
-      width: 100%;
       height: $height;
+    }
+
+    .website {
+      position: relative;
+      top: -2px;
+      padding: 6px 10px;
     }
 
     .info {
       font-size: 14px;
+      color: #666;
     }
 
-    .score {
-      color: #ffb400;
-      font-size: 40px;
-      font-weight: bold;
+    .thumb {
+      $margin: 0px;
+      width: 160px;
+      float: right;
+      margin-right: $margin;
+      margin-top: $margin;
+      height: $height - $margin * 2;
+      overflow: hidden;
+      position: relative;
+
+      img {
+        max-width: 100%;
+        min-height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
     }
   }
 
-  .pagination {
-    float: right;
-  }
 </style>

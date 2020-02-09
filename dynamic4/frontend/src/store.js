@@ -6,8 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     url: {
-      index: '/api/movie',
-      detail: '/api/movie/{id}'
+      index: '/api/news',
+      detail: '/api/news/{id}'
     }
   },
   mutations: {

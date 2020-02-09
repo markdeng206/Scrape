@@ -40,7 +40,7 @@
             </el-col>
           </el-row>
         </el-card>
-        <el-card class="item item-flat m-t" v-loading="loading" v-if="!disabled"></el-card>
+        <el-card class="item item-flat m-t" shadow="never" v-loading="loading" v-if="!disabled"></el-card>
       </el-col>
     </el-row>
   </div>
@@ -69,7 +69,6 @@
     },
     methods: {
       onLoadMore() {
-        console.log('load more')
         this.page += 1
         this.onFetchData()
       },

@@ -11,6 +11,12 @@ import router from './router'
 
 Vue.config.productionTip = false
 
+import VueMoment from 'vue-moment'
+import moment from 'moment-timezone'
+
+Vue.use(VueMoment, {
+  moment,
+})
 new Vue({
   store,
   router,
