@@ -35,15 +35,17 @@
     data() {
       return {
         loading: false,
-        total: null,
+        count: null,
         page: parseInt(this.$route.params.page || 1),
         limit: 10,
-        news: null
+        news: null,
+        previous: null,
+        next: null,
       }
     },
     computed: {
       disabled() {
-        return this.page === 10
+        return !this.next
       }
     },
     mounted() {
@@ -61,10 +63,12 @@
             limit: this.limit,
             offset: (this.page - 1) * this.limit
           }
-        }).then(({data: {results: results, count: total}}) => {
+        }).then(({data: {results: results, count: count, next: next, previous: previous}}) => {
           this.loading = false
+          this.previous = previous
+          this.next = next
           this.news = this.news ? this.news.concat(results) : results
-          this.total = total
+          this.count = count
         })
       }
     }
