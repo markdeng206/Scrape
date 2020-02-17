@@ -1,4 +1,4 @@
-# 爬虫练习平台
+# 爬虫案例平台
 
 ![Deploy to Kubernetes](https://github.com/Germey/Scrape/workflows/Deploy%20to%20Kubernetes/badge.svg)
 
