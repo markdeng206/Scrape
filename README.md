@@ -1,6 +1,7 @@
 # 爬虫案例平台
 
 ![deploy](https://github.com/Germey/Scrape/workflows/deploy/badge.svg)
+![package](https://github.com/Germey/Scrape/workflows/package/badge.svg)
 
 网络爬虫实验平台，包含多个样例，如纯静态网站、动态渲染网站、字体反爬网站、登录验证网站、验证码验证网站、反代理网站、JavaScript混淆及加密网站等，持续更新中。
 
