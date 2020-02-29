@@ -50,6 +50,9 @@ items:
           ports:
           - containerPort: 80
           resources:
+            limits:
+              cpu: "0.05"
+              memory: "200Mi"
             requests:
               cpu: "0.03"
               memory: "100Mi"
