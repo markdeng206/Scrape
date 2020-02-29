@@ -51,7 +51,7 @@ items:
           - containerPort: 80
           resources:
             requests:
-              cpu: "0.05"
+              cpu: "0.03"
               memory: "100Mi"
         restartPolicy: Always
   status: {}
