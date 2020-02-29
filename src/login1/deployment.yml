@@ -70,7 +70,7 @@ spec:
   tls:
     - hosts:
         - login1.scrape.cuiqingcai.com
-      secretName: tls-scrape-cuiqingcai-com
+      secretName: tls-wildcard-scrape-cuiqingcai-com
   rules:
     - host: login1.scrape.cuiqingcai.com
       http:

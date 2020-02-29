@@ -125,7 +125,7 @@ spec:
   tls:
     - hosts:
         - captcha1.scrape.cuiqingcai.com
-      secretName: tls-scrape-cuiqingcai-com
+      secretName: tls-wildcard-scrape-cuiqingcai-com
   rules:
     - host: captcha1.scrape.cuiqingcai.com
       http:

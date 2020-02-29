@@ -144,7 +144,7 @@ spec:
   tls:
     - hosts:
         - dynamic3.scrape.cuiqingcai.com
-      secretName: tls-scrape-cuiqingcai-com
+      secretName: tls-wildcard-scrape-cuiqingcai-com
   rules:
     - host: dynamic3.scrape.cuiqingcai.com
       http:

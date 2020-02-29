@@ -92,7 +92,7 @@ spec:
   tls:
     - hosts:
         - static1.scrape.cuiqingcai.com
-      secretName: tls-scrape-cuiqingcai-com
+      secretName: tls-wildcard-scrape-cuiqingcai-com
   rules:
     - host: static1.scrape.cuiqingcai.com
       http:
