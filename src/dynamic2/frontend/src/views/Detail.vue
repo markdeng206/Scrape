@@ -128,10 +128,11 @@
       },
       onFetchData() {
         this.loading = true
-        let token = encrypt(this.$store.state.url.detail)
-        this.$axios.get(format(this.$store.state.url.detail, {
+        let url = format(this.$store.state.url.detail, {
           id: this.id,
-        }), {
+        })
+        let token = encrypt(url)
+        this.$axios.get(url, {
           params: {
             token: token
           }
