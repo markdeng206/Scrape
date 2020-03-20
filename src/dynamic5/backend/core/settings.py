@@ -55,7 +55,7 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
     ],
-    'DEFAULT_PAGINATION_CLASS': 'app.pagination.PageNumberPaginationDataOnly',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 10
 }
 
@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('PGSQL_DATABASE', 'scrape_movie'),
+        'NAME': os.getenv('PGSQL_DATABASE', 'scrape_book'),
         'USER': os.getenv('PGSQL_USER', 'postgres'),
         'PASSWORD': os.getenv('PGSQL_PASSWORD', 'postgres'),
         'HOST': os.getenv('PGSQL_HOST', 'localhost'),

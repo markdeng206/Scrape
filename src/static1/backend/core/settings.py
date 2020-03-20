@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('PGSQL_DATABASE', 'scrape_maoyan'),
+        'NAME': os.getenv('PGSQL_DATABASE', 'scrape_movie'),
         'USER': os.getenv('PGSQL_USER', 'postgres'),
         'PASSWORD': os.getenv('PGSQL_PASSWORD', 'postgres'),
         'HOST': os.getenv('PGSQL_HOST', 'localhost'),

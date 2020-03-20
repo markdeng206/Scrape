@@ -1,0 +1,35 @@
+version: '3'
+services:
+  dynamic4-backend:
+    container_name: 'scrape-dynamic4-backend'
+    restart: always
+    build: ./backend
+    image: 'germey/scrape-dynamic4-backend:${BUILD_NUMBER}'
+    ports:
+      - '8000:8000'
+    environment:
+      PGSQL_HOST:
+      PGSQL_PORT:
+      PGSQL_USER:
+      PGSQL_PASSWORD:
+      PGSQL_DATABASE: 'scrape_news'
+  dynamic4-frontend:
+    container_name: 'scrape-dynamic4-frontend'
+    restart: always
+    build: ./frontend
+    image: 'germey/scrape-dynamic4-frontend:${BUILD_NUMBER}'
+    depends_on:
+      - 'dynamic4-backend'
+    ports:
+      - '8083:80'
+  dynamic4-spider:
+    container_name: 'scrape-dynamic4-spider'
+    restart: always
+    build: ./spider
+    image: 'germey/scrape-dynamic4-spider:${BUILD_NUMBER}'
+    environment:
+      PGSQL_HOST:
+      PGSQL_PORT:
+      PGSQL_USER:
+      PGSQL_PASSWORD:
+      PGSQL_DATABASE: 'scrape_news'

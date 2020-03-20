@@ -69,7 +69,7 @@ items:
                 - name: APP_ENV
                   value: production
                 - name: PGSQL_DATABASE
-                  value: scrape_maoyan
+                  value: scrape_movie
                 - name: PGSQL_HOST
                   valueFrom:
                     secretKeyRef:
