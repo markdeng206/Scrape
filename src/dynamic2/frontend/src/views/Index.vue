@@ -60,7 +60,7 @@
 </template>
 
 <script>
-  import encrypt from "../utils/encrypt"
+  import encrypt from '../utils/encrypt'
 
   export default {
     name: 'Index',
