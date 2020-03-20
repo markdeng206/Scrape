@@ -100,6 +100,8 @@
 </template>
 
 <script>
+  import encrypt from "../utils/encrypt"
+
   const format = require('string-format-obj')
   export default {
     name: 'Detail',
@@ -126,8 +128,10 @@
       },
       onFetchData() {
         this.loading = true
+        let token = encrypt(this.$store.state.url.index)
         this.$axios.get(format(this.$store.state.url.detail, {
-          id: this.id
+          id: this.id,
+          token: token
         })).then(({data: data}) => {
           this.loading = false
           this.movie = data

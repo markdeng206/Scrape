@@ -60,7 +60,7 @@
 </template>
 
 <script>
-  import encrypt from "../utils/encrypt";
+  import encrypt from "../utils/encrypt"
 
   export default {
     name: 'Index',
@@ -90,7 +90,7 @@
       onFetchData() {
         this.loading = true
         let offset = (this.page - 1) * this.limit
-        let token = encrypt(this.$store.state.url.index, offset)
+        let token = encrypt(this.$store.state.url.index)
         this.$axios.get(this.$store.state.url.index, {
           params: {
             limit: this.limit,

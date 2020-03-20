@@ -5,12 +5,23 @@ import hashlib
 
 
 class TokenMiddleware(object):
+    """
+    use token middleware to encrypt every request
+    """
     def __init__(self, get_response):
+        """
+        define response and max time threshold
+        :param get_response:
+        """
         self.get_response = get_response
         self.threshold = 180
 
     def __call__(self, request):
-        offset = request.GET.get('offset')
+        """
+        check token
+        :param request:
+        :return:
+        """
         token = request.GET.get('token')
         path = request.path.rstrip('/')
 
@@ -24,7 +35,7 @@ class TokenMiddleware(object):
             return HttpResponse(status=401)
 
         # get server sign
-        args = ','.join([path, offset, client_time])
+        args = ','.join([path, client_time])
         server_sign = hashlib.sha1(args.encode('utf-8')).hexdigest()
 
         # check sign
