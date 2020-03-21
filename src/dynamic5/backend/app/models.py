@@ -1,6 +1,5 @@
 from django.contrib.postgres.fields import ArrayField
-from django.db.models import CharField, Model, DateTimeField, IntegerField, ManyToManyField, ForeignKey, \
-    FloatField, TextField, SET_NULL
+from django.db.models import CharField, Model, DateTimeField, IntegerField, ForeignKey, TextField, SET_NULL
 
 class Book(Model):
     id = CharField(primary_key=True, max_length=255, )
@@ -29,7 +28,7 @@ class Book(Model):
 class Comment(Model):
     id = CharField(primary_key=True, max_length=255)
     content = CharField(max_length=255, blank=True, null=True)
-    book = ForeignKey(Book, null=True, blank=True, on_delete=SET_NULL)
+    book = ForeignKey(Book, null=True, blank=True, related_name='comments', on_delete=SET_NULL)
     
     def __str__(self):
         return '%s object <%s>' % (self.__class__.__name__, self.pk)
