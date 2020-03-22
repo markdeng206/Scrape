@@ -8,8 +8,8 @@ items:
         kompose.version: 1.20.0 ()
       creationTimestamp: null
       labels:
-        io.kompose.service: dynamic4-backend
-      name: dynamic4-backend
+        io.kompose.service: dynamic5-backend
+      name: dynamic5-backend
       namespace: scrape
     spec:
       ports:
@@ -17,7 +17,7 @@ items:
           port: 8000
           targetPort: 8000
       selector:
-        io.kompose.service: dynamic4-backend
+        io.kompose.service: dynamic5-backend
     status:
       loadBalancer: {}
   - apiVersion: v1
@@ -28,8 +28,8 @@ items:
         kompose.version: 1.20.0 ()
       creationTimestamp: null
       labels:
-        io.kompose.service: dynamic4-frontend
-      name: dynamic4-frontend
+        io.kompose.service: dynamic5-frontend
+      name: dynamic5-frontend
       namespace: scrape
     spec:
       ports:
@@ -37,7 +37,7 @@ items:
           port: 8083
           targetPort: 80
       selector:
-        io.kompose.service: dynamic4-frontend
+        io.kompose.service: dynamic5-frontend
     status:
       loadBalancer: {}
   - apiVersion: extensions/v1beta1
@@ -48,8 +48,8 @@ items:
         kompose.version: 1.20.0 ()
       creationTimestamp: null
       labels:
-        io.kompose.service: dynamic4-backend
-      name: dynamic4-backend
+        io.kompose.service: dynamic5-backend
+      name: dynamic5-backend
       namespace: scrape
     spec:
       replicas: 1
@@ -62,14 +62,14 @@ items:
             kompose.version: 1.20.0 ()
           creationTimestamp: null
           labels:
-            io.kompose.service: dynamic4-backend
+            io.kompose.service: dynamic5-backend
         spec:
           containers:
             - env:
                 - name: APP_ENV
                   value: production
                 - name: PGSQL_DATABASE
-                  value: scrape_news
+                  value: scrape_book
                 - name: PGSQL_HOST
                   valueFrom:
                     secretKeyRef:
@@ -90,8 +90,8 @@ items:
                     secretKeyRef:
                       name: pgsql
                       key: PGSQL_USER
-              image: germey/scrape-dynamic4-backend:${TAG}
-              name: scrape-dynamic4-backend
+              image: germey/scrape-dynamic5-backend:${TAG}
+              name: scrape-dynamic5-backend
               ports:
                 - containerPort: 8000
               resources: {}
@@ -105,8 +105,8 @@ items:
         kompose.version: 1.20.0 ()
       creationTimestamp: null
       labels:
-        io.kompose.service: dynamic4-frontend
-      name: dynamic4-frontend
+        io.kompose.service: dynamic5-frontend
+      name: dynamic5-frontend
       namespace: scrape
     spec:
       replicas: 1
@@ -119,63 +119,23 @@ items:
             kompose.version: 1.20.0 ()
           creationTimestamp: null
           labels:
-            io.kompose.service: dynamic4-frontend
+            io.kompose.service: dynamic5-frontend
         spec:
           containers:
-            - image: germey/scrape-dynamic4-frontend:${TAG}
-              name: scrape-dynamic4-frontend
+            - image: germey/scrape-dynamic5-frontend:${TAG}
+              name: scrape-dynamic5-frontend
               ports:
                 - containerPort: 80
               resources: {}
           restartPolicy: Always
     status: {}
-  - apiVersion: batch/v1beta1
-    kind: CronJob
-    metadata:
-      name: dynamic4-spider
-      namespace: scrape
-    spec:
-      schedule: "*/30 * * * *"
-      jobTemplate:
-        spec:
-          template:
-            spec:
-              containers:
-                - name: scrape-dynamic4-spider
-                  image: germey/scrape-dynamic4-spider:${TAG}
-                  env:
-                    - name: APP_ENV
-                      value: production
-                    - name: PGSQL_DATABASE
-                      value: scrape_news
-                    - name: PGSQL_HOST
-                      valueFrom:
-                        secretKeyRef:
-                          name: pgsql
-                          key: PGSQL_HOST
-                    - name: PGSQL_PASSWORD
-                      valueFrom:
-                        secretKeyRef:
-                          name: pgsql
-                          key: PGSQL_PASSWORD
-                    - name: PGSQL_PORT
-                      valueFrom:
-                        secretKeyRef:
-                          name: pgsql
-                          key: PGSQL_PORT
-                    - name: PGSQL_USER
-                      valueFrom:
-                        secretKeyRef:
-                          name: pgsql
-                          key: PGSQL_USER
-              restartPolicy: OnFailure
 kind: List
 metadata: {}
 ---
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: ingress-dynamic4
+  name: ingress-dynamic5
   namespace: scrape
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
@@ -183,13 +143,13 @@ metadata:
 spec:
   tls:
     - hosts:
-        - dynamic4.scrape.cuiqingcai.com
+        - dynamic5.scrape.cuiqingcai.com
       secretName: tls-wildcard-scrape-cuiqingcai-com
   rules:
-    - host: dynamic4.scrape.cuiqingcai.com
+    - host: dynamic5.scrape.cuiqingcai.com
       http:
         paths:
           - backend:
-              serviceName: dynamic4-frontend
+              serviceName: dynamic5-frontend
               servicePort: 80
             path: /

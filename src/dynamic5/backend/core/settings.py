@@ -56,7 +56,7 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer',
     ],
     'DEFAULT_PAGINATION_CLASS': 'app.pagination.PageNumberPaginationDataOnly',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 18
 }
 
 ROOT_URLCONF = 'core.urls'

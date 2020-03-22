@@ -1,28 +1,43 @@
 <template>
-  <div id="index" v-infinite-scroll="onLoadMore" infinite-scroll-disabled="disabled">
+  <div id="index">
+    <el-row class="m-t">
+      <el-col :span="18" :offset="3">
+        <el-row v-loading="loading" v-if="!books">
+        </el-row>
+        <el-row :gutter="15">
+          <el-col :span="4" v-for="book in books" :key="book.id">
+            <el-card shadow="hover" class="item m-b" v-loading="loading">
+              <el-row class="top">
+                <el-col :span="24">
+                  <router-link :to="{ name: 'detail', params: { id: book.id }}">
+                    <img :src="'/api/proxy/' + book.cover" class="cover">
+                  </router-link>
+                </el-col>
+              </el-row>
+              <el-row class="bottom p-t-none">
+                <el-col :span="24">
+                  <router-link :to="{ name: 'detail', params: { id: book.id }}">
+                    <h3 class="m-b-sm">{{ book.name }}</h3>
+                  </router-link>
+                </el-col>
+              </el-row>
+            </el-card>
+          </el-col>
+        </el-row>
+      </el-col>
+    </el-row>
     <el-row>
-      <el-col :span="18" :offset="3" class="m-b-lg">
-        <el-card v-for="item in news" shadow="hover" class="item m-t" :key="item.code">
-          <el-row>
-            <el-col :xs="item.thumb? 15: 24" :sm="item.thumb? 18: 24" :md="item.thumb? 20: 24">
-              <h3 class="m-l-md m-t-md">
-                <el-button size="mini" type="primary" class="website m-t-n-xs">{{ item.website }}</el-button>
-                <a :href="item.url" target="_blank" class="m-l-sm">{{ item.title }}</a>
-              </h3>
-              <p class="info m-l-md">
-                <span>{{ item.published_at | moment('timezone', 'Asia/Shanghai', 'YYYY-MM-DD HH:mm:ss') }}
-                </span>
-                <span class="m-l" v-if="item.source && item.source !== item.website">来源： {{ item.source }}</span>
-              </p>
-            </el-col>
-            <el-col :xs="9" :sm="6" :md="4" class="text-center" v-if="item.thumb">
-              <div class="thumb">
-                <img :src="item.thumb">
-              </div>
-            </el-col>
-          </el-row>
-        </el-card>
-        <el-card class="item item-flat m-t" shadow="never" v-loading="loading" v-if="!disabled"></el-card>
+      <el-col :span="10" :offset="11">
+        <div class="pagination m-v-lg">
+          <el-pagination
+              background
+              @current-change="onPageChange"
+              :current-page.sync="page"
+              :page-size="limit"
+              layout="total, prev, pager, next"
+              :total="total">
+          </el-pagination>
+        </div>
       </el-col>
     </el-row>
   </div>
@@ -35,25 +50,23 @@
     data() {
       return {
         loading: false,
-        count: null,
+        total: null,
         page: parseInt(this.$route.params.page || 1),
-        limit: 10,
-        news: null,
-        previous: null,
-        next: null,
-      }
-    },
-    computed: {
-      disabled() {
-        return !this.next
+        limit: 18,
+        books: null
       }
     },
     mounted() {
       this.onFetchData()
     },
     methods: {
-      onLoadMore() {
-        this.page += 1
+      onPageChange(page) {
+        this.$router.push({
+          name: 'indexPage',
+          params: {
+            page: page
+          }
+        })
         this.onFetchData()
       },
       onFetchData() {
@@ -63,12 +76,10 @@
             limit: this.limit,
             offset: (this.page - 1) * this.limit
           }
-        }).then(({data: {results: results, count: count, next: next, previous: previous}}) => {
+        }).then(({data: {results: results, count: total}}) => {
           this.loading = false
-          this.previous = previous
-          this.next = next
-          this.news = this.news ? this.news.concat(results) : results
-          this.count = count
+          this.books = results
+          this.total = total
         })
       }
     }
@@ -81,51 +92,32 @@
       padding: 0;
     }
   }
-
-  #index {
-    height: 1000px;
-    overflow: auto;
-  }
 </style>
 <style lang="scss" scoped>
   .item {
-    $height: 110px;
+    $height: 350px;
     width: 100%;
     height: $height;
 
-    &.item-flat {
-      height: $height;
-    }
+    .top {
+      width: 100%;
+      height: $height - 80px;
 
-    .website {
-      position: relative;
-      top: -2px;
-      padding: 6px 10px;
-    }
-
-    .info {
-      font-size: 14px;
-      color: #666;
-    }
-
-    .thumb {
-      $margin: 0px;
-      width: 160px;
-      float: right;
-      margin-right: $margin;
-      margin-top: $margin;
-      height: $height - $margin * 2;
-      overflow: hidden;
-      position: relative;
-
-      img {
-        max-width: 100%;
-        min-height: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
+      .cover {
+        width: 100%;
+        height: $height - 80px;
       }
     }
+
+    .bottom {
+      font-size: 14px;
+      height: 80px;
+      padding: 10px;
+    }
+
   }
 
+  .pagination {
+    float: right;
+  }
 </style>

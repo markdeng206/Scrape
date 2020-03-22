@@ -12,7 +12,7 @@ services:
       PGSQL_PORT:
       PGSQL_USER:
       PGSQL_PASSWORD:
-      PGSQL_DATABASE: 'scrape_news'
+      PGSQL_DATABASE: 'scrape_book'
   dynamic5-frontend:
     container_name: 'scrape-dynamic5-frontend'
     restart: always
@@ -22,14 +22,3 @@ services:
       - 'dynamic5-backend'
     ports:
       - '8083:80'
-  dynamic5-spider:
-    container_name: 'scrape-dynamic5-spider'
-    restart: always
-    build: ./spider
-    image: 'germey/scrape-dynamic5-spider:${BUILD_NUMBER}'
-    environment:
-      PGSQL_HOST:
-      PGSQL_PORT:
-      PGSQL_USER:
-      PGSQL_PASSWORD:
-      PGSQL_DATABASE: 'scrape_news'
