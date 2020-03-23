@@ -21,6 +21,7 @@
 * [dynamic2](https://dynamic2.scrape.cuiqingcai.com/)：猫眼电影数据网站，数据通过 Ajax 加载，数据接口参数加密且有时间限制，适合动态页面渲染爬取或 JavaScript 逆向分析。
 * [dynamic3](https://dynamic3.scrape.cuiqingcai.com/)：猫眼电影数据网站，数据通过 Ajax 加载，无页码翻页，适合 Ajax 分析和动态页面渲染抓取。
 * [dynamic4](https://dynamic4.scrape.cuiqingcai.com/)：新闻网站索引，数据通过 Ajax 加载，无页码翻页，适合 Ajax 分析和动态页面渲染抓取以及智能页面提取分析。
+* [dynamic5](https://dynamic5.scrape.cuiqingcai.com/)：豆瓣图书网站，数据通过 Ajax 加载，有翻页，无反爬，适合大批量动态页面渲染抓取。
 
 ### 验证码网站
 
@@ -34,6 +35,10 @@
 ### 模拟登录网站
 
 * [login1](https://login1.scrape.cuiqingcai.com/)：登录时用户名和密码经过加密处理，适合 JavaScript 逆向分析。
+
+### 反爬型网站
+
+* [antispider1](https://antispider1.scrape.cuiqingcai.com/)：WebDriver 反爬网站，检测到 WebDriver 就不显示页面。
 
 ## 自动部署
 

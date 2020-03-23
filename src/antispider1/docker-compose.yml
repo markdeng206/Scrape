@@ -1,0 +1,24 @@
+version: '3'
+services:
+  antispider1-backend:
+    container_name: 'scrape-antispider1-backend'
+    restart: always
+    build: ./backend
+    image: 'germey/scrape-antispider1-backend:${BUILD_NUMBER}'
+    ports:
+      - '8000:8000'
+    environment:
+      PGSQL_HOST:
+      PGSQL_PORT:
+      PGSQL_USER:
+      PGSQL_PASSWORD:
+      PGSQL_DATABASE: 'scrape_maoyan'
+  antispider1-frontend:
+    container_name: 'scrape-antispider1-frontend'
+    restart: always
+    build: ./frontend
+    image: 'germey/scrape-antispider1-frontend:${BUILD_NUMBER}'
+    depends_on:
+      - 'antispider1-backend'
+    ports:
+      - '8083:80'
