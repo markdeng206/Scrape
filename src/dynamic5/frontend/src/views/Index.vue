@@ -6,19 +6,21 @@
         </el-row>
         <el-row :gutter="15">
           <el-col :span="4" v-for="book in books" :key="book.id">
-            <el-card shadow="hover" class="item m-b" v-loading="loading">
+            <el-card shadow="hover" class="item m-b" v-loading="loading" :style="{height: imageHeight * 1.4 + 'px'}">
               <el-row class="top">
                 <el-col :span="24">
                   <router-link :to="{ name: 'detail', params: { id: book.id }}">
-                    <img :src="'/api/proxy/' + book.cover" class="cover">
+                    <img :src="book.cover" @load="onSetImageheight" class="cover"
+                         :style="{height: imageHeight + 'px' }">
                   </router-link>
                 </el-col>
               </el-row>
               <el-row class="bottom p-t-none">
                 <el-col :span="24">
                   <router-link :to="{ name: 'detail', params: { id: book.id }}">
-                    <h3 class="m-b-sm">{{ book.name }}</h3>
+                    <h3 class="m-t-sm m-b-xs name">{{ book.name }}</h3>
                   </router-link>
+                  <p class="authors" v-if="book.authors && book.authors.length > 0">{{book.authors.join(',') }}</p>
                 </el-col>
               </el-row>
             </el-card>
@@ -53,7 +55,8 @@
         total: null,
         page: parseInt(this.$route.params.page || 1),
         limit: 18,
-        books: null
+        books: null,
+        imageHeight: null
       }
     },
     mounted() {
@@ -68,6 +71,10 @@
           }
         })
         this.onFetchData()
+      },
+      onSetImageheight(event) {
+        let image = event.target
+        this.imageHeight = image.clientWidth * 1.3
       },
       onFetchData() {
         this.loading = true
@@ -95,26 +102,33 @@
 </style>
 <style lang="scss" scoped>
   .item {
-    $height: 350px;
     width: 100%;
-    height: $height;
 
     .top {
       width: 100%;
-      height: $height - 80px;
 
       .cover {
         width: 100%;
-        height: $height - 80px;
       }
+
     }
 
     .bottom {
       font-size: 14px;
-      height: 80px;
       padding: 10px;
-    }
 
+      .name {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      .authors {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+    }
   }
 
   .pagination {

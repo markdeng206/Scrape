@@ -8,9 +8,15 @@ import './assets/scss/round.scss'
 import './assets/scss/pm.scss'
 import store from './store'
 import router from './router'
+import moment from "moment";
 
 Vue.config.productionTip = false
 
+Vue.filter('formatDate', function (value) {
+  if (value) {
+    return moment(String(value)).format('YYYY-MM-DD')
+  }
+})
 new Vue({
   store,
   router,

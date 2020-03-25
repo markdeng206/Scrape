@@ -4,96 +4,85 @@
       <el-col :span="18" :offset="3">
         <el-card shadow="hover" v-loading="loading">
           <el-row class="item" v-if="book">
+            <el-col :xs="16" :sm="16" class="p-h">
+              <router-link :to="{ name: 'detail', params: { id: book.id }}">
+                <span v-if="book.score" class="score m-r">
+                  <i class="el-icon-medal"></i>
+                  {{ book.score }}
+                </span>
+                <h2 class="m-b-sm name">{{ book.name }}</h2>
+              </router-link>
+              <p v-if="book.introduction" class="introduction">
+                简介：{{ book.introduction.length > 100 ? book.introduction.substring(0, 100) + '...' : '' }}
+              </p>
+              <div class="tags">
+                <el-button v-for="tag in book.tags.slice(0, 5)" type="primary" size="mini">
+                  {{ tag }}
+                </el-button>
+              </div>
+              <div class="info">
+                <p v-if="book.price" class="price">
+                  定价：<span>{{ book.price }}</span>
+                </p>
+                <p v-if="book.authors && book.authors.length > 0" class="authors">
+                  作者：{{ book.authors.join('、')}}
+                </p>
+                <p v-if="book.translators && book.translators > 0" class="translators">
+                  译者：{{ book.translators.join('、')}}
+                </p>
+                <p v-if="book.published_at" class="published-at">
+                  出版时间：{{ book.published_at | formatDate }}
+                </p>
+                <p v-if="book.publisher" class="publisher">
+                  出版社：{{ book.publisher }}
+                </p>
+                <p v-if="book.page_number" class="page-number">
+                  页数：{{ book.page_number }}
+                </p>
+                <p v-if="book.isbn" class="isbn">
+                  ISBM：{{ book.isbn }}
+                </p>
+              </div>
+            </el-col>
             <el-col :xs="0" :sm="8">
               <router-link :to="{ name: 'detail', params: { id: book.id }}">
                 <img :src="book.cover" class="cover">
               </router-link>
             </el-col>
-            <el-col :xs="16" :sm="12" class="p-h">
-              <router-link :to="{ name: 'detail', params: { id: book.id }}">
-                <h2 class="m-b-sm">{{ book.name }} - {{ book.alias }}</h2>
-              </router-link>
-              <div class="categories">
-                <el-button class="category" size="mini" type="primary" :key="category"
-                           v-for="category in book.categories">{{ category }}
-                </el-button>
-              </div>
-              <div class="m-v-sm info">
-                <span>{{ book.regions.join('、') }}</span>
-                <span> / </span>
-                <span>{{ book.minute }} 分钟</span>
-              </div>
-              <div class="m-v-sm info">
-                <span>{{ book.published_at }} 上映</span>
-              </div>
-              <div class="drama">
-                <h3>剧情简介</h3>
-                <p>
-                  {{ book.drama }}
+          </el-row>
+        </el-card>
+      </el-col>
+    </el-row>
+
+    <el-row class="m-t">
+      <el-col :span="18" :offset="3">
+        <el-card shadow="hover" v-loading="loading">
+          <el-row>
+            <el-col :span="24" class="p-h">
+              <h2 class="title">评价</h2>
+              <div class="comments">
+                <p v-for="comment in book.comments" class="comment">
+                  {{ comment.content }}
                 </p>
               </div>
-            </el-col>
-            <el-col :xs="8" :sm="4">
-              <p class="score m-t-md m-b-n-sm">{{ book.score.toFixed(1) }}</p>
-              <p>
-                <el-rate
-                    :value="book.score / 2"
-                    disabled
-                    :max="5"
-                    text-color="#ff9900">
-                </el-rate>
-              </p>
-              <p class="m-t-lg">
-                <el-button size="small" type="primary" @click="onBuy">
-                  购票选座
-                </el-button>
-              </p>
             </el-col>
           </el-row>
         </el-card>
       </el-col>
     </el-row>
-    <el-row v-if="book">
+
+    <el-row class="m-t">
       <el-col :span="18" :offset="3">
-        <h2 class="subtitle">导演</h2>
-        <el-row :gutter="15" class="directors">
-          <el-col :span="4" v-for="director in book.directors" class="director" :key="director.name">
-            <el-card shadow="hover">
-              <img :src="director.image" class="image">
-              <p class="name text-center m-b-none m-t-xs">{{ director.name }}</p>
-            </el-card>
-          </el-col>
-        </el-row>
-      </el-col>
-    </el-row>
-    <el-row v-if="book">
-      <el-col :span="18" :offset="3">
-        <h2 class="subtitle">演员</h2>
-        <el-row :gutter="15" class="actors">
-          <el-col :span="4" v-for="actor in book.actors" class="actor" :key="actor.name">
-            <el-card shadow="hover" class="m-b">
-              <img :src="actor.image" class="image">
-              <el-tooltip class="item" effect="dark" :content="actor.name" placement="right">
-                <p class="name text-center m-b-none m-t-xs">{{ actor.name }}</p>
-              </el-tooltip>
-              <el-tooltip class="item" effect="dark" :content="actor.role" placement="right">
-                <p class="role text-center m-b-none m-t-xs">饰：{{ actor.role }}</p>
-              </el-tooltip>
-            </el-card>
-          </el-col>
-        </el-row>
-      </el-col>
-    </el-row>
-    <el-row v-if="book">
-      <el-col :span="18" :offset="3">
-        <h2 class="subtitle">剧照</h2>
-        <el-row :gutter="15" class="photos">
-          <el-col :span="3" v-for="photo in book.photos" class="photo" :key="photo">
-            <el-card shadow="hover" class="m-b">
-              <el-image :src="photo" fit="cover" lazy :preview-src-list="photos"></el-image>
-            </el-card>
-          </el-col>
-        </el-row>
+        <el-card shadow="hover" v-loading="loading">
+          <el-row>
+            <el-col :span="24" class="p-h">
+              <h2 class="title">目录</h2>
+              <div class="catalog">
+                <pre>{{ book.catalog }}</pre>
+              </div>
+            </el-col>
+          </el-row>
+        </el-card>
       </el-col>
     </el-row>
   </div>
@@ -113,17 +102,8 @@
     mounted() {
       this.onFetchData()
     },
-    computed: {
-      photos: {
-        get() {
-          return this.book.photos.map(photo => photo.replace(/(.*[(?:jpg)|(?:png)]).*/, '$1'))
-        }
-      }
-    },
+    computed: {},
     methods: {
-      onBuy() {
-        window.location = 'https://maoyan.com/'
-      },
       onFetchData() {
         this.loading = true
         this.$axios.get(format(this.$store.state.url.detail, {
@@ -161,6 +141,10 @@
 <style lang="scss" scoped>
   #detail {
     padding-bottom: 50px;
+
+    .el-card {
+      min-height: 80px;
+    }
   }
 
   $color-primary: #E9415A;
@@ -168,81 +152,63 @@
   .item {
     width: 100%;
 
-    .categories {
-      .category {
-        padding: 5px 10px;
-      }
+    .introduction {
+      color: #666;
     }
 
     .cover {
       width: 100%;
     }
 
-    .info {
-      font-size: 14px;
+    .name {
+      display: inline-block;
     }
 
     .score {
+      display: inline-block;
       color: #ffb400;
-      font-size: 40px;
+      font-size: 30px;
       font-weight: bold;
     }
 
-    .drama {
-      h3 {
-        border-left: 3px solid $color-primary;
-        padding-left: 8px;
-      }
+    .info {
+      color: #666;
+      font-size: 15px;
 
-      p {
-        font-size: 15px;
-        line-height: 24px;
-        color: #444;
+      .price > span {
+        color: #E9415A;
+        font-size: 20px;
       }
     }
   }
 
-  .subtitle {
-    border-left: 3px solid $color-primary;
-    padding-left: 8px;
+  .title {
+    border-left: 4px solid #E9415A;
+    padding-left: 10px;
+    margin-bottom: 20px;
   }
 
-  .directors {
-    .director {
-      .image {
-        width: 100%;
-      }
-    }
+  .catalog {
+    display: block;
+    unicode-bidi: embed;
+    font-family: monospace;
+    white-space: pre;
+    line-height: 25px;
+    font-size: 15px;
   }
 
-  .actors {
-    .actor {
-      height: 272px;
+  .comments {
+    .comment {
+      color: #666;
+      padding-top: 16px;
+      font-size: 15px;
+      padding-left: 5px;
+      padding-bottom: 15px;
+      border-bottom: 1px dashed #EEE;
+      margin: 0;
 
-      .image {
-        width: 100%;
-      }
-
-      .name {
-        font-size: 14px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-      }
-
-      .role {
-        font-size: 14px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-      }
-    }
-  }
-
-  .photos {
-    .photo {
-      .image {
-        width: 100%;
+      &:hover {
+        background: #EFEFEF;
       }
     }
   }

@@ -10,6 +10,7 @@
   "dependencies": {
     "core-js": "^2.6.5",
     "element-ui": "^2.4.5",
+    "moment": "^2.24.0",
     "string-format-obj": "^1.1.1",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",

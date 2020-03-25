@@ -16,11 +16,9 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
-from proxy.views import proxy_view
 
 urlpatterns = [
     path('', include('app.urls')),
     path('admin/', admin.site.urls),
     url(r'auth/', include('rest_framework.urls')),
-    url('api/proxy/(?P<url>.*)', proxy_view),
 ]

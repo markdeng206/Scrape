@@ -8,8 +8,10 @@ import './assets/scss/round.scss'
 import './assets/scss/pm.scss'
 import store from './store'
 import router from './router'
+import moment from 'moment'
 
 Vue.config.productionTip = false
+
 
 new Vue({
   store,
