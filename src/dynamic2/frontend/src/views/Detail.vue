@@ -5,7 +5,7 @@
         <el-card shadow="hover" v-loading="loading">
           <el-row class="item" v-if="movie">
             <el-col :xs="0" :sm="8">
-              <router-link :to="{ name: 'detail', params: { id: movie.id }}">
+              <router-link :to="{ name: 'detail', params: { key: transfer(movie.id) }}">
                 <img :src="movie.cover" class="cover">
               </router-link>
             </el-col>
@@ -101,6 +101,7 @@
 
 <script>
   import encrypt from '../utils/encrypt'
+  import transfer from '../utils/transfer'
 
   const format = require('string-format-obj')
   export default {
@@ -108,7 +109,7 @@
     data() {
       return {
         loading: false,
-        id: this.$route.params.id,
+        key: this.$route.params.key,
         movie: null
       }
     },
@@ -123,13 +124,14 @@
       }
     },
     methods: {
+      transfer: transfer,
       onBuy() {
         window.location = 'https://maoyan.com/'
       },
       onFetchData() {
         this.loading = true
         let url = format(this.$store.state.url.detail, {
-          id: this.id,
+          key: this.key,
         })
         let token = encrypt(url)
         this.$axios.get(url, {

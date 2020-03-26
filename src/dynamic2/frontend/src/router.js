@@ -18,7 +18,7 @@ export default new Router({
       component: () => import('./views/Index.vue')
     },
     {
-      path: '/detail/:id',
+      path: '/detail/:key',
       name: 'detail',
       component: () => import('./views/Detail.vue')
     }

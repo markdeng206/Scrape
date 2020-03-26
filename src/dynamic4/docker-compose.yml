@@ -22,14 +22,3 @@ services:
       - 'dynamic4-backend'
     ports:
       - '8083:80'
-  dynamic4-spider:
-    container_name: 'scrape-dynamic4-spider'
-    restart: always
-    build: ./spider
-    image: 'germey/scrape-dynamic4-spider:${BUILD_NUMBER}'
-    environment:
-      PGSQL_HOST:
-      PGSQL_PORT:
-      PGSQL_USER:
-      PGSQL_PASSWORD:
-      PGSQL_DATABASE: 'scrape_news'

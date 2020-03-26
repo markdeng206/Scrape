@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     url: {
       index: '/api/movie',
-      detail: '/api/movie/{id}'
+      detail: '/api/movie/{key}'
     }
   },
   mutations: {

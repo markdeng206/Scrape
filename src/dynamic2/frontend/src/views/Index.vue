@@ -5,12 +5,12 @@
         <el-card v-for="movie in movies" shadow="hover" class="item m-t" :key="movie.name">
           <el-row>
             <el-col :xs="8" :sm="6" :md="4">
-              <router-link :to="{ name: 'detail', params: { id: movie.id }}">
+              <router-link :to="{ name: 'detail', params: { key: transfer(movie.id) }}">
                 <img :src="movie.cover" class="cover">
               </router-link>
             </el-col>
             <el-col :xs="9" :sm="13" :md="16" class="p-h">
-              <router-link :to="{ name: 'detail', params: { id: movie.id }}">
+              <router-link :to="{ name: 'detail', params: { key: transfer(movie.id) }}" class="title">
                 <h2 class="m-b-sm">{{ movie.name }} - {{ movie.alias }}</h2>
               </router-link>
               <div class="categories">
@@ -61,6 +61,7 @@
 
 <script>
   import encrypt from '../utils/encrypt'
+  import transfer from '../utils/transfer'
 
   export default {
     name: 'Index',
@@ -78,6 +79,7 @@
       this.onFetchData()
     },
     methods: {
+      transfer: transfer,
       onPageChange(page) {
         this.$router.push({
           name: 'indexPage',
