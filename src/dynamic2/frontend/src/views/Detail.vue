@@ -10,7 +10,7 @@
               </router-link>
             </el-col>
             <el-col :xs="16" :sm="12" class="p-h">
-              <router-link :to="{ name: 'detail', params: { id: movie.id }}">
+              <router-link :to="{ name: 'detail', params: { id: movie.id }}" class="name">
                 <h2 class="m-b-sm">{{ movie.name }} - {{ movie.alias }}</h2>
               </router-link>
               <div class="categories">

@@ -1,7 +1,7 @@
 FROM python:3.7-alpine
 ENV PYTHONUNBUFFERED 1
 WORKDIR /app
-COPY . /app
+COPY requirements.txt .
 RUN apk update && apk add \
         libuuid \
         gcc \
@@ -11,4 +11,5 @@ RUN apk update && apk add \
         postgresql-dev \
     && pip install pip -U \
     && pip install -r requirements.txt
+COPY . /app
 CMD ["uwsgi", "--ini", "uwsgi.ini"]
