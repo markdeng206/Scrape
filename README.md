@@ -14,6 +14,7 @@
 * [static1](https://static1.scrape.cuiqingcai.com/)：猫眼电影数据网站，数据通过服务端渲染，适合基本爬虫练习。
 * [static2](https://static2.scrape.cuiqingcai.com/)：HTTPS 无效证书网站，适合做跳过验证 HTTPS 案例。
 * [static3](https://static3.scrape.cuiqingcai.com/)：HTTP Basic Authentication 网站，适合做 HTTP 认证案例，用户名密码均为 admin。
+* [static4](https://static4.scrape.cuiqingcai.com/)：每个响应增加了 5 秒延迟，适合测试慢速网站爬取或做爬取速度测试，减少本身网速干扰。
 
 ### 动态渲染网站
 
