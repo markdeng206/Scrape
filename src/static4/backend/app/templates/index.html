@@ -1,0 +1,125 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block css %}
+{{ block.super }}
+<link href="{% static 'css/index.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block app %}
+<div data-v-7f856186="" id="index">
+  <div data-v-7f856186="" class="el-row">
+    <div data-v-7f856186="" class="el-col el-col-18 el-col-offset-3">
+      {% for item in items %}
+      <div data-v-7f856186="" class="el-card item m-t is-hover-shadow">
+        <div class="el-card__body">
+          <div data-v-7f856186="" class="el-row">
+            <div data-v-7f856186="" class="el-col el-col-24 el-col-xs-8 el-col-sm-6 el-col-md-4">
+              <a data-v-7f856186=""
+                 href="/detail/{{ item.pk }}"
+                 class="">
+                <img
+                    data-v-7f856186=""
+                    src="{{ item.cover }}"
+                    class="cover">
+              </a>
+            </div>
+            <div data-v-7f856186="" class="p-h el-col el-col-24 el-col-xs-9 el-col-sm-13 el-col-md-16">
+              <a data-v-7f856186="" href="/detail/{{ item.pk }}" class="name">
+                <h2 data-v-7f856186="" class="m-b-sm">{{ item.name }} - {{ item.alias }}</h2>
+              </a>
+              <div data-v-7f856186="" class="categories">
+                {% for category in item.categories %}
+                <button data-v-7f856186="" type="button"
+                        class="el-button category el-button--primary el-button--mini">
+                  <span>{{ category }}</span>
+                </button>
+                {% endfor %}
+              </div>
+              <div data-v-7f856186="" class="m-v-sm info">
+                <span data-v-7f856186="">{{ item.regions | join:"、" }}</span>
+                <span data-v-7f856186=""> / </span>
+                <span data-v-7f856186="">{{ item.minute }} 分钟</span>
+              </div>
+              <div data-v-7f856186="" class="m-v-sm info">
+                {% if item.published_at %}
+                <span data-v-7f856186="">{{ item.published_at | date:'Y-m-d' }} 上映</span>
+                {% endif %}
+              </div>
+            </div>
+            <div data-v-7f856186="" class="el-col el-col-24 el-col-xs-5 el-col-sm-5 el-col-md-4">
+              <p data-v-7f856186=""
+                 class="score m-t-md m-b-n-sm">
+                {{ item.score }}</p>
+              <p data-v-7f856186="">
+              <div data-v-7f856186="" role="slider" aria-valuenow="4.75" aria-valuetext="" aria-valuemin="0"
+                   aria-valuemax="5" tabindex="0" class="el-rate">
+                {% for star in item.score_front %}
+                <span class="el-rate__item" style="cursor: auto;"><i
+                    class="el-rate__icon el-icon-star-on" style="color: rgb(247, 186, 42);"></i>
+                </span>
+                {% endfor %}
+                <span
+                    class="el-rate__item" style="cursor: auto;"><i class="el-rate__icon el-icon-star-on"
+                                                                   style="color: rgb(239, 242, 247);"><i
+                    class="el-rate__decimal el-icon-star-on"
+                    style="color: rgb(247, 186, 42); width: {{ item.score_behind }}%;"></i></i>
+                </span>
+              </div>
+              </p></div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="el-loading-mask" style="display: none;">
+      <div class="el-loading-spinner">
+        <svg viewBox="25 25 50 50" class="circular">
+          <circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div data-v-7f856186="" class="el-row">
+    <div data-v-7f856186="" class="el-col el-col-10 el-col-offset-11">
+      <div data-v-7f856186="" class="pagination m-v-lg">
+        <div data-v-7f856186="" class="el-pagination is-background">
+          <span class="el-pagination__total">共 {{ items.total }} 条</span>
+          {% if items.has_previous %}
+          <a href="/page/{{ items.previous_page_number }}">
+            <button type="button" class="btn-prev">
+              <i class="el-icon el-icon-arrow-left"></i>
+            </button>
+          </a>
+          {% else %}
+          <button type="button" disabled="disabled" class="btn-prev">
+            <i class="el-icon el-icon-arrow-left"></i>
+          </button>
+          {% endif %}
+          <ul class="el-pager">
+            {% for i in items.paginator.page_range %}
+            {% if items.number == i %}
+            <li class="number active">
+              <a href="/page/{{ i }}">{{ i }}</a>
+            </li>
+            {% else %}
+            <li class="number">
+              <a href="/page/{{ i }}">{{ i }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+          {% if items.has_next %}
+          <a href="/page/{{ items.next_page_number }}">
+            <button type="button" class="btn-next"><i class="el-icon el-icon-arrow-right"></i></button>
+          </a>
+          {% else %}
+          <button type="button" disabled="disabled" class="btn-next"><i class="el-icon el-icon-arrow-right"></i>
+          </button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

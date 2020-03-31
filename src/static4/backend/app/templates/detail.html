@@ -1,0 +1,146 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block css %}
+{{ block.super }}
+<link href="{% static 'css/detail.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block app %}
+<div data-v-63864230="" id="detail" class="m-t">
+  <div data-v-63864230="" class="el-row">
+    <div data-v-63864230="" class="el-col el-col-18 el-col-offset-3">
+      <div data-v-63864230="" class="el-card is-hover-shadow"><!---->
+        <div class="el-card__body">
+          <div data-v-63864230="" class="item el-row">
+            <div data-v-63864230="" class="el-col el-col-24 el-col-xs-0 el-col-sm-8">
+              <a data-v-63864230="" class="router-link-exact-active router-link-active">
+                <img
+                    data-v-63864230=""
+                    src="{{ item.cover }}"
+                    class="cover">
+              </a>
+            </div>
+            <div data-v-63864230="" class="p-h el-col el-col-24 el-col-xs-16 el-col-sm-12">
+              <a data-v-63864230=""
+                 class="router-link-exact-active router-link-active">
+                <h2 data-v-63864230="" class="m-b-sm">{{ item.name }} - {{ item.alias }}</h2></a>
+              <div data-v-63864230="" class="categories">
+                {% for category in item.categories %}
+                <button data-v-7f856186="" type="button"
+                        class="el-button category el-button--primary el-button--mini">
+                  <span>{{ category }}</span>
+                </button>
+                {% endfor %}
+              </div>
+              <div data-v-7f856186="" class="m-v-sm info">
+                <span data-v-7f856186="">{{ item.regions | join:"、" }}</span>
+                <span data-v-7f856186=""> / </span>
+                <span data-v-7f856186="">{{ item.minute }} 分钟</span>
+              </div>
+              <div data-v-7f856186="" class="m-v-sm info">
+                {% if item.published_at %}
+                <span data-v-7f856186="">{{ item.published_at | date:'Y-m-d' }} 上映</span>
+                {% endif %}
+              </div>
+              <div data-v-63864230="" class="drama"><h3 data-v-63864230="">剧情简介</h3>
+                <p data-v-63864230="">
+                  {{ item.drama }}
+                </p></div>
+            </div>
+            <div data-v-63864230="" class="el-col el-col-24 el-col-xs-8 el-col-sm-4"><p data-v-63864230=""
+                                                                                        class="score m-t-md m-b-n-sm">
+              {{ item.score }}</p>
+              <p data-v-63864230="">
+              <div data-v-63864230="" role="slider" aria-valuenow="4.4" aria-valuetext="" aria-valuemin="0"
+                   aria-valuemax="5" tabindex="0" class="el-rate">
+                {% for star in item.score_front %}
+                <span
+                    class="el-rate__item" style="cursor: auto;"><i class="el-rate__icon el-icon-star-on"
+                                                                   style="color: rgb(247, 186, 42);"></i>
+                </span>
+                {% endfor %}
+                <span
+                    class="el-rate__item" style="cursor: auto;"><i class="el-rate__icon el-icon-star-on"
+                                                                   style="color: rgb(239, 242, 247);"><i
+                    class="el-rate__decimal el-icon-star-on"
+                    style="color: rgb(247, 186, 42); width: {{ item.score_behind }}%;"></i></i></span>
+              </div>
+              </p>
+              <p data-v-63864230="" class="m-t-lg">
+                <a href="https://maoyan.com/">
+                  <button data-v-63864230="" type="button" class="el-button el-button--primary el-button--small">
+                    <span>购票选座</span>
+                  </button>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="el-loading-mask" style="display: none;">
+          <div class="el-loading-spinner">
+            <svg viewBox="25 25 50 50" class="circular">
+              <circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
+            </svg><!----></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div data-v-63864230="" class="el-row">
+    <div data-v-63864230="" class="el-col el-col-18 el-col-offset-3"><h2 data-v-63864230="" class="subtitle">导演</h2>
+      <div data-v-63864230="" class="directors el-row" style="margin-left: -7.5px; margin-right: -7.5px;">
+        {% for director in item.directors %}
+        <div data-v-63864230="" class="director el-col el-col-4" style="padding-left: 7.5px; padding-right: 7.5px;">
+          <div data-v-63864230="" class="el-card is-hover-shadow"><!---->
+            <div class="el-card__body">
+              <img data-v-63864230=""
+                   src="{{ director.image }}"
+                   class="image">
+              <p data-v-63864230="" class="name text-center m-b-none m-t-xs">{{ director.name }}</p></div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div data-v-63864230="" class="el-row">
+    <div data-v-63864230="" class="el-col el-col-18 el-col-offset-3"><h2 data-v-63864230="" class="subtitle">演员</h2>
+      <div data-v-63864230="" class="actors el-row" style="margin-left: -7.5px; margin-right: -7.5px;">
+        {% for actor in item.actors %}
+        <div data-v-63864230="" class="actor el-col el-col-4" style="padding-left: 7.5px; padding-right: 7.5px;">
+          <div data-v-63864230="" class="el-card m-b is-hover-shadow"><!---->
+            <div class="el-card__body">
+              <img data-v-63864230=""
+                   src="{{ actor.image }}"
+                   class="image">
+              <p data-v-63864230="" class="el-tooltip name text-center m-b-none m-t-xs item"
+                 aria-describedby="el-tooltip-6009" tabindex="0">{{ actor.name }}</p>
+              <p data-v-63864230="" class="el-tooltip role text-center m-b-none m-t-xs item"
+                 aria-describedby="el-tooltip-9582" tabindex="0">饰：{{ actor.role }}</p></div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div data-v-63864230="" class="el-row">
+    <div data-v-63864230="" class="el-col el-col-18 el-col-offset-3"><h2 data-v-63864230="" class="subtitle">剧照</h2>
+      <div data-v-63864230="" class="photos el-row" style="margin-left: -7.5px; margin-right: -7.5px;">
+        {% for photo in item.photos %}
+        <div data-v-63864230="" class="photo el-col el-col-3" style="padding-left: 7.5px; padding-right: 7.5px;">
+          <div data-v-63864230="" class="el-card m-b is-hover-shadow"><!---->
+            <div class="el-card__body">
+              <div data-v-63864230="" class="el-image">
+                <img
+                    src="{{ photo }}"
+                    class="el-image__inner el-image__preview" style="object-fit: cover;">
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
